@@ -27,6 +27,7 @@ Router::get('jogo/game','GameController/game');
 Router::get('jogo/instrucoes','GameController/instructions');
 Router::get('jogo/registar','GameController/register');
 Router::get('jogo/login','GameController/login');
+Router::get('jogo/area_privada','GameController/private_area');
 
 
 /************** End of URLEncoder Routing Rules ************************************/

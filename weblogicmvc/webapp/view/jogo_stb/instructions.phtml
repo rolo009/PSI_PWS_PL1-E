@@ -6,22 +6,16 @@ use ArmoredCore\WebObjects\URL;
 Layout::includeLayout('menu'); ?>
 
 <div class="btn-retroceder">
-    <img src="<?= Asset::image('retroceder.png')?>" height="40px" size="40px" alt="Retroceder" onclick="goBack()">
-
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
+    <img src="<?= Asset::image('retroceder.png')?>" class="img-retoceder" alt="Retroceder" onclick="goBack()">
 </div>
 
-      <h4 class="intrucoes-contariner" >Instruções</h4>
-        <div>
-            <div align="center">
-            <img src="<?= Asset::image('regras.png')?>" alt="Regras">
-            </div>
-        </div>
+<h4 class="intrucoes-contariner" >Instruções</h4>
+<div>
+    <div align="center">
+        <img src="<?= Asset::image('regras.png')?>" alt="Regras">
+    </div>
+</div>
 
-
+<?php Layout::includeLayout('rodape'); ?>
 
 

@@ -78,6 +78,13 @@ body{
 }
 
 /* CSS - GAME */
+/*MENU*/
+
+.btn-light{
+    margin: 6px;
+}
+
+
 
 .card{
     width: 150px;
@@ -86,7 +93,7 @@ body{
 }
 
 .container{
-    margin-top: 100px;
+    margin-top: 90px;
 }
 
 .col{
@@ -156,9 +163,32 @@ justify-content: center;
 
 .btn-retroceder{
     padding: 20px;
+
+}
+.img-retoceder{
+    width: 40px;
+    height: 40px;
+}
+
+.img-retoceder:hover {
+    transition: 1s;
+    -webkit-transition: opacity 1s ease-in-out;
+    transform: scale(1.1);
 }
 
 .intrucoes-contariner{
     text-align: center;
     margin-bottom: 20px;
+}
+
+/*Rodapé*/
+.bg-4 {
+    background-color: #343a40;
+    color: #ffffff;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    height: 50px;
+    line-height:50px;
+    vertical-align: middle;
 }

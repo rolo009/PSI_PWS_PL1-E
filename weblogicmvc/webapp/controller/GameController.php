@@ -30,4 +30,8 @@ class GameController extends BaseController
 
         return View::make('jogo_stb.instructions');
     }
+    public function private_area(){
+
+        return View::make('jogo_stb.private_area');
+    }
 }

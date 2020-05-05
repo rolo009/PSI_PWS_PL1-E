@@ -1,0 +1,165 @@
+body{
+    background-color: #e6e6e6;
+}
+
+{
+    font-family: 'Varela Round', sans-serif;
+}
+.modal-login {
+    color: #636363;
+    width: 500px;
+}
+.modal-login .modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+}
+.modal-login .modal-header {
+    border-bottom: none;
+    position: relative;
+    justify-content: center;
+}
+.modal-login h4 {
+    text-align: center;
+    font-size: 26px;
+}
+.modal-login  .form-group {
+    position: relative;
+}
+.modal-login i {
+    position: absolute;
+    left: 13px;
+    top: 11px;
+    font-size: 18px;
+}
+.modal-login .form-control {
+    padding-left: 40px;
+}
+.modal-login .form-control:focus {
+    border-color: #343a40;
+}
+.modal-login .form-control, .modal-login .btn {
+    min-height: 40px;
+    border-radius: 3px;
+}
+.modal-login .hint-text {
+    text-align: center;
+    padding-top: 10px;
+}
+.modal-login .close {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+.modal-login .btn {
+    background: #343a40;
+    color: white;
+    border: none;
+    line-height: normal;
+}
+.modal-login .btn:hover, .modal-login .btn:focus {
+    background: #343a40;
+}
+.modal-login .modal-footer {
+    background: #343a40;
+    border-color: #343a40;
+    text-align: center;
+    margin: 0 -20px -20px;
+    border-radius: 5px;
+    font-size: 13px;
+    justify-content: center;
+}
+.modal-login .modal-footer a {
+    color: #999;
+}
+.trigger-btn {
+    display: inline-block;
+    margin: 100px auto;
+}
+
+/* CSS - GAME */
+
+.card{
+    width: 150px;
+    border: 0px;
+    background-color: #e6e6e6;
+}
+
+.container{
+    margin-top: 100px;
+}
+
+.col{
+    padding: 2px;
+}
+
+.btn-primary{
+    background-color: #FFFFFF;
+    color: #000000;
+    border-color: #000000;
+}
+
+.btn-primary:active{
+    background-color: #808080;
+    border-color: #000000;
+}
+
+.btn-primary:hover{
+    background-color: #bfbfbf;
+    color: #000000;
+    border-color: #000000;
+
+}
+.btn-primary:link{
+    background-color: #FFFFFF;
+    border-color: #000000;
+}
+
+.dados{
+    align-content: center;
+}
+.btn-outline-secondary{
+    margin-top: 5%;
+    background-color: #FFFFFF;
+}
+
+.col-sm{
+    display: flex;
+    align-items: center;
+justify-content: center;
+}
+
+.row{
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 850px;
+}
+
+.rodar-dado{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10%;
+}
+
+.card-body{
+    position: absolute;
+    margin-top: 2%;
+    right:5%;
+    text-align: center;
+    border-style: groove;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    border-color: #FFFFFF;
+}
+
+/*Pagina Instrucoes*/
+
+.btn-retroceder{
+    padding: 20px;
+}
+
+.intrucoes-contariner{
+    text-align: center;
+    margin-bottom: 20px;
+}

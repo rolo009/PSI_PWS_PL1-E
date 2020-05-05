@@ -1,0 +1,32 @@
+<?php
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('menu'); ?>
+
+<div class="modal-dialog modal-login">
+    <div class="modal-content">
+        <div class="modal-header">
+            <img src="<?= Asset::image('logo_stb_login.png')?>" alt="logo" style="width:100px;">
+        </div>
+        <h4 class="modal-title">Login</h4>
+        <div class="modal-body">
+            <form action="" method="post">
+                <div class="form-group">
+                    <i class="fa fa-user"></i>
+                    <input type="email" class="form-control" placeholder="Email" required="required">
+                </div>
+                <div class="form-group">
+                    <i class="fa fa-lock"></i>
+                    <input type="password" class="form-control" placeholder="Palavra Passe" required="required">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Iniciar Sessão">
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+

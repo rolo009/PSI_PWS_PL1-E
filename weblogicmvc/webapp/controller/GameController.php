@@ -34,4 +34,9 @@ class GameController extends BaseController
 
         return View::make('jogo_stb.private_area');
     }
+
+    public function update_register(){
+
+        return View::make('jogo_stb.update_register');
+    }
 }

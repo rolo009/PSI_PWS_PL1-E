@@ -191,6 +191,13 @@ body{
     vertical-align: middle;
 }
 
+.rodape{
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    text-align: center;
+}
+
 /*Top 10*/
 
 .table{

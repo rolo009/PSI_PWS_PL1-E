@@ -192,3 +192,31 @@ justify-content: center;
     line-height:50px;
     vertical-align: middle;
 }
+
+/*Top 10*/
+
+.table{
+    text-align: center;
+    margin-top: 80px;
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 5%;
+}
+
+.thead{
+    background-color: silver;
+}
+
+.tbody{
+    background-color: #d9d9d9;
+    border-radius: 5px;
+}
+
+/*Alterar Registo*/
+
+.alterar-registo{
+    position: absolute;
+    margin-top: 20px;
+    right:5%;
+}

@@ -28,10 +28,6 @@
     position: relative;
     animation: text 3s 1;
 }
-.enter-index {
-    font-size: 30px;
-    color: #0C70B7;
-}
 @keyframes text {
     0%{
         color: black;
@@ -45,7 +41,4 @@
         letter-spacing: 8px;
         margin-bottom: -40px;
     }
-}
-.seucona {
-    background-color: #cc9393;
 }

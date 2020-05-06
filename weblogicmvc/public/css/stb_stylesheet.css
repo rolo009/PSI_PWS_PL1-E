@@ -84,8 +84,6 @@ body{
     margin: 6px;
 }
 
-
-
 .card{
     width: 150px;
     border: 0px;
@@ -132,7 +130,7 @@ body{
 .col-sm{
     display: flex;
     align-items: center;
-justify-content: center;
+    justify-content: center;
 }
 
 .row{
@@ -189,6 +187,6 @@ justify-content: center;
     position: relative;
     bottom: 0;
     height: 50px;
-    line-height:50px;
+    line-height: 50px;
     vertical-align: middle;
 }

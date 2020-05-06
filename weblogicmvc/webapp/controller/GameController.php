@@ -39,4 +39,9 @@ class GameController extends BaseController
 
         return View::make('jogo_stb.update_register');
     }
+
+    public function topTen(){
+
+        return View::make('jogo_stb.top10');
+    }
 }

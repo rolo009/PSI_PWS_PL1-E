@@ -1,0 +1,53 @@
+<?php
+use ArmoredCore\WebObjects\Asset;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('menu'); ?>
+<div class="search-player justify-content-center">
+    <form class="form-inline" action="/action_page.php">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search">
+        <button class="btn btn-dark" type="submit">Search</button>
+    </form>
+</div>
+
+<div class="players-container">
+    <table class="table">
+        <thead class="thead">
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Data Registo</th>
+            <th scope="col">Banir</th>
+        </tr>
+        </thead>
+        <tbody class="tbody">
+        <tr>
+            <th scope="row">aaaa</th>
+            <td>06/05/2000</td>
+            <td>
+                <a class="btn btn-dark my-2 my-sm-0" href="" role="button">Banir</a>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">bbbb</th>
+            <td>06/05/2000</td>
+            <td>
+                <a class="btn btn-dark my-2 my-sm-0" href="" role="button">Banir</a>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">cccc</th>
+            <td>06/05/2000</td>
+            <td>
+                <a class="btn btn-dark my-2 my-sm-0" href="" role="button">Banir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="rodape">
+    <?php Layout::includeLayout('rodape'); ?>
+</div>
+</body>
+</html>

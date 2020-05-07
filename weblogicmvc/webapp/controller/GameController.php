@@ -44,4 +44,9 @@ class GameController extends BaseController
 
         return View::make('jogo_stb.top10');
     }
+
+    public function admin(){
+
+        return View::make('jogo_stb.admin_users');
+    }
 }

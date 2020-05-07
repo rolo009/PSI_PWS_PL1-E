@@ -39,6 +39,7 @@ body{
 .modal-login .form-control:focus {
     border-color: #343a40;
 }
+
 .modal-login .form-control, .modal-login .btn {
     min-height: 40px;
     border-radius: 3px;
@@ -202,7 +203,7 @@ body{
 
 .table{
     text-align: center;
-    margin-top: 80px;
+    margin-top: 50px;
     width: 80%;
     margin-right: auto;
     margin-left: auto;
@@ -231,4 +232,12 @@ body{
 
 p{
     margin-top: 10px;
+}
+
+/*Admin Control*/
+
+.search-player{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
 }

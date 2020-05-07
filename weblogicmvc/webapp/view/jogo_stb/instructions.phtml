@@ -4,34 +4,38 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('menu'); ?>
-
+<div class="btn-retroceder ">
+<img src="<?= Asset::image('retroceder.png')?>" class="img-retoceder" alt="Retroceder" onclick="goBack()">
+</div>
 <div class="container"></div>
     <div class="row">
-        <div class="col-6 col-sm-4">
+        <div class="col-sm">
             <img src="<?= Asset::image('dados.png')?>">
         </div>
-        <div class="col-6 col-sm-4">
+        <div class="col-sm">
             <img src="<?= Asset::image('tabuleiro.png')?>">
         </div>
-        <div class="col-6 col-sm-4">
+        <div class="col-sm">
             <img src="<?= Asset::image('pontos.png')?>">
         </div>
 
         <div class="w-100 d-none d-md-block"></div>
 
-        <div class="col-6 col-sm-4">
-            <p>Primeiramente, o jogador lança os dados.</p>
+        <div class="col-6 col-sm-4 instrucoes">
+            <p><b>1. </b>Primeiramente, o jogador lança os dados.</p>
         </div>
-        <div class="col-6 col-sm-4">
-            <p>Consoante o número que saiu nos dados, o jogador preenche no tabuleiro o seu total.</p>
-            <p>O jogador continua a jogar até conseguir preecher o máximo de espaços no tabuleiro possíveis.</p>
+        <div class="col-6 col-sm-4 instrucoes">
+            <p><b>2. </b>Consoante o número que saiu nos dados, o jogador preenche no tabuleiro o seu total.</p>
+            <p><b>3. </b>O jogador continua a jogar até conseguir preecher o máximo de espaços no tabuleiro possíveis.</p>
         </div>
-        <div class="col-6 col-sm-4">
-            <p>Terminado o jogo, este calcula a sua pontuação.</p>
+        <div class="col-6 col-sm-4 instrucoes">
+            <p><b>4. </b>Terminado o jogo, este calcula a sua pontuação.</p>
         </div>
     </div>
 </div>
 
-<?php Layout::includeLayout('rodape'); ?>
+<div class="rodape">
+    <?php Layout::includeLayout('rodape'); ?>
+</div>
 
 

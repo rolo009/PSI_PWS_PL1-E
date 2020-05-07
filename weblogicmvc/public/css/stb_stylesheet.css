@@ -175,6 +175,10 @@ body{
     transform: scale(1.1);
 }
 
+.instrucoes{
+    margin-top: 10px;
+}
+
 /*Rodapé*/
 .bg-4 {
     background-color: #343a40;
@@ -223,4 +227,8 @@ body{
 }
 .img-instrucoes {
     align-content: center;
+}
+
+p{
+    margin-top: 10px;
 }

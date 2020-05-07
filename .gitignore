@@ -8,5 +8,3 @@
 #pasta vendor da weblogicmvc, pois não nos
 #interessa que vá para o git, nem a pasta que
 #contém as configurações do IDE
-/weblogicmvc/vendor
-/weblogicmvc/.idea

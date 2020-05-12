@@ -1,7 +1,7 @@
 <?php
 
 
-class gameEngine
+class GameEngine
 {
     public $tabuleiro ;
     private $estadoJogo;

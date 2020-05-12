@@ -4,19 +4,11 @@
 class tabuleiro
 {
     private $dado;
+    private $resultadoDado1;
+    private $resultadoDado2;
+    private $numerosBloqueioP1;
+    private $numerosBloqueioP2;
 
-    public function resultadoDado1(){
-
-}
-    public function resultadoDado2(){
-
-}
-    public function numerosBloqueioP1(){
-
-}
-    public function numerosBloqueioP2(){
-
-}
     public function rolarDados(){
 
 }

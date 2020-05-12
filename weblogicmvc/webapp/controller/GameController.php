@@ -50,12 +50,4 @@ class GameController extends BaseController
         return View::make('jogo_stb.admin_users');
     }
 
-    public function registar(){
-        $username = POST::get('username');
-        $name = POST::get('name');
-        $email = POST::get('email');
-        $password = POST::get('password');
-        $password_confirm = POST::get('password_confirm');
-        $despesa = POST::get('data_nasc');
-    }
 }

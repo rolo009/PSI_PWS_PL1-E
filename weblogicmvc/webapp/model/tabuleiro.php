@@ -1,7 +1,7 @@
 <?php
 
 
-class tabuleiro
+class Nabuleiro
 {
     private $dado;
     private $resultadoDado1;

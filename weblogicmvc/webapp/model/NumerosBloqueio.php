@@ -1,7 +1,7 @@
 <?php
 
 
-class numerosBloqueio
+class NumerosBloqueio
 {
     Public $numerosBloqueio;
 

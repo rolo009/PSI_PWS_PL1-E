@@ -3,6 +3,7 @@ use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\View;
+use ArmoredCore\WebObjects\Post;
 
 /**
  * Created by PhpStorm.
@@ -61,6 +62,8 @@ class HomeController extends BaseController
     public function about(){
         return View::make('home.about');
     }
+
+
 
 }
 

@@ -2,26 +2,15 @@
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Shut the Box - PWS</title>
+Layout::includeLayout('menu-index'); ?>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?= Asset::css('index_stylesheet.css')?>">
 
-</head>
-
-<body class="index-color">
 <div class="container-index">
     <img src="<?= Asset::image('logo_stb_login.png')?>" alt="logo" style="width:100px;">
     <span class="title-index">Shut The Box</span>
     <a class="btn btn-primary" type="button" href="<?= URL::toRoute('jogo/login')?>">START GAME</a>
 </div>
+<div class="rodape">
+    <?php Layout::includeLayout('rodape'); ?>
+</div>
 
-</body>
-</html>

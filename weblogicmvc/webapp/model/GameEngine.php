@@ -3,7 +3,9 @@
 
 class GameEngine
 {
-    public $tabuleiro ;
+
+    public $tabuleiro = Tabuleiro::class;
+    
     private $estadoJogo;
 
     public function iniciarJogo(){

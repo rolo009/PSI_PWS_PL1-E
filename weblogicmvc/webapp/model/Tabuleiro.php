@@ -3,14 +3,15 @@
 
 class Tabuleiro
 {
-    private $dado;
+    private $dado = Dado::class;
     private $resultadoDado1;
     private $resultadoDado2;
-    private $numerosBloqueioP1;
-    private $numerosBloqueioP2;
+    private $numerosBloqueioP1 = NumerosBloqueio::class;
+    private $numerosBloqueioP2 = NumerosBloqueio::class;
 
     public function rolarDados(){
-
+        $resultadoDado1 = rolarDado();
+        $resultadoDado2 = rolarDado();
 }
     public function checkFinalJogadaP1(){
 

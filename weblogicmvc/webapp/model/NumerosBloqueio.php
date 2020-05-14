@@ -12,7 +12,14 @@ class NumerosBloqueio
     }
 
     public function bloquearNumeros(){
-
+        for ($i = 0; $i <= 9; $i++) {
+            if($numerosBloqueio[$i] = false) {
+                $numerosBloqueio[$i] = true;
+            }
+            else{
+                echo "Número já selecionado!";
+            }
+        }
     }
 
     public function checkFinalJogada(){

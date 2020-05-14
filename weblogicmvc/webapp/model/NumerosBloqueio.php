@@ -12,10 +12,13 @@ class NumerosBloqueio
     }
 
     public function bloquearNumeros(){
+        $numero = $numeroSelecionado;
+
         for ($i = 0; $i <= 9; $i++) {
-            if($numerosBloqueio[$i] = false) {
+            if($numerosBloqueio[$i] = $numero) {
                 $numerosBloqueio[$i] = true;
             }
+
             else{
                 echo "Número já selecionado!";
             }

@@ -12,7 +12,7 @@ class NumerosBloqueio
         }
     }
 
-    public function bloquearNumeros(){
+    public function bloquearNumeros($numeroSelecionado){
         $numero = $numeroSelecionado;
 
         for ($i = 0; $i <= 9; $i++) {

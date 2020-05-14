@@ -10,8 +10,10 @@ class Tabuleiro
     private $numerosBloqueioP2 = NumerosBloqueio::class;
 
     public function rolarDados(){
-        $resultadoDado1 = rolarDado();
-        $resultadoDado2 = rolarDado();
+
+        $resultadoDado1 = $dado->rolarDado();
+        $resultadoDado2 = $dado->rolarDado();
+
 }
     public function checkFinalJogadaP1(){
 

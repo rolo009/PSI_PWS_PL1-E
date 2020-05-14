@@ -1,4 +1,5 @@
 <?php
+
 include_once ("NumerosBloqueio.php");
 
 class GameEngine
@@ -17,7 +18,7 @@ class GameEngine
     public function getEstadoJogo(){
 
     }
-    public function updateEstadoJogo(){
+    public function updateEstadoJogo($estadoJogo){
         $estadoJogo++;
     }
 

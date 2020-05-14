@@ -8,6 +8,7 @@ class NumerosBloqueio
 
         for ($i = 0; $i <= 9; $i++) {
             $numerosBloqueio[$i] = false;
+            return $this->numerosBloqueio;
         }
     }
 

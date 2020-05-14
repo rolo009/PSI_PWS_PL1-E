@@ -1,5 +1,5 @@
 <?php
-
+include_once ("NumerosBloqueio.php");
 
 class GameEngine
 {
@@ -9,7 +9,9 @@ class GameEngine
     private $estadoJogo;
 
     public function iniciarJogo(){
-
+        $estadoJogo = 1;
+        $numerosBloqueio = new numerosBloqueio();
+        $numerosBloqueio = $numerosBloqueio->iniciar();
     }
 
     public function getEstadoJogo(){

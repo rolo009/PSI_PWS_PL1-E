@@ -16,7 +16,7 @@ class GameEngine
 
     }
     public function updateEstadoJogo(){
-
+        $estadoJogo++;
     }
 
 }

@@ -50,13 +50,12 @@ class GameController extends BaseController
         return View::make('jogo_stb.admin_users');
     }
 
-    public function iniciarJogo() {
-        session_start();
+    public function iniciarJogo($gameEngine) {
+        // Definir objeto na sessão
+        Session::set('iniciarJogo', $gameEngine);
 
         $gameEngine = new gameEngine();
         $gameEngine = $gameEngine->iniciarJogo();
-
-        $_SESSION['IniciarJogo'] = $gameEngine;
 
     }
 

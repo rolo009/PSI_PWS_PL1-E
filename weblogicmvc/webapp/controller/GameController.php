@@ -54,4 +54,10 @@ class GameController extends BaseController
 
     }
 
+    public function rolarDados() {
+
+        $gameEngine = new GameEngine();
+        $gameEngine = $gameEngine->rolarDados();
+    }
+
 }

@@ -15,8 +15,8 @@ class GameEngine
         $numerosBloqueio = $numerosBloqueio->iniciar();
     }
 
-    public function getEstadoJogo(){
-
+    public function getEstadoJogo($estadoJogo){
+        return $estadoJogo;
     }
     public function updateEstadoJogo($estadoJogo){
         $estadoJogo++;
@@ -32,6 +32,9 @@ class GameEngine
         }
         else if ($nJogador == 2){
             $tabuleiro -> checkFinalJogadaP2();
+        }
+        else {
+            echo "Jogador não encontrado!";
         }
     }
 

@@ -22,4 +22,17 @@ class GameEngine
         $estadoJogo++;
     }
 
+    public function rolarDados(){
+        $tabuleiro -> rolarDados();
+    }
+
+    public function bloquearNumero($numerosBloqueio, $nJogador){
+        if ($nJogador == 1){
+            $tabuleiro -> checkFinalJogadaP1();
+        }
+        else if ($nJogador == 2){
+            $tabuleiro -> checkFinalJogadaP2();
+        }
+    }
+
 }

@@ -3,6 +3,8 @@ use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\View;
+use ArmoredCore\WebObjects\Data;
+
 
 class GameController extends BaseController
 {
@@ -50,12 +52,14 @@ class GameController extends BaseController
         return View::make('jogo_stb.admin_users');
     }
 
-    public function iniciarJogo($gameEngine) {
-        // Definir objeto na sessão
-        Session::set('iniciarJogo', $gameEngine);
+    public function iniciarJogo() {
 
         $gameEngine = new gameEngine();
         $gameEngine = $gameEngine->iniciarJogo();
+
+        Session::set('iniciarJogo', $gameEngine);
+
+        return View::make('jogo_stb.game', $estadoJogo);
 
     }
 

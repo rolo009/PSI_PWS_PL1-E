@@ -50,4 +50,8 @@ class GameController extends BaseController
         return View::make('jogo_stb.admin_users');
     }
 
+    public function iniciarJogo() {
+
+    }
+
 }

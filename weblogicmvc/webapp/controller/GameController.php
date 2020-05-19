@@ -58,4 +58,11 @@ class GameController extends BaseController
 
         $_SESSION['IniciarJogo'] = $gameEngine;
     }
+
+    public function rolarDados() {
+
+        $gameEngine = new gameEngine();
+        $gameEngine = $gameEngine->rolarDados();
+
+    }
 }

@@ -23,6 +23,7 @@ class GameEngine
     }
 
     public function rolarDados(){
+
         $tabuleiro -> rolarDados();
     }
 

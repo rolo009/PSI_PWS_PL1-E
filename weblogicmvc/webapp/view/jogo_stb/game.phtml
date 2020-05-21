@@ -3,7 +3,12 @@ use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
-Layout::includeLayout('menu'); ?>
+Layout::includeLayout('menu');
+
+
+if($estadoJogo == 1){
+    
+}?>
 <div><a class="btn btn-primary"name = "btn_iniciarJogo" href="<?= URL::toRoute('jogo/btnIniciarJogo')?>" role="button">Botão Iniciar Jogo</a></div>
     <div class="card-body">
         <h5 class="card-title">Pontuação </h5>
@@ -16,7 +21,7 @@ Layout::includeLayout('menu'); ?>
             <div class="container card">
                 <div class="row">
                     <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">1</a>
+                        <a class="btn btn-primary" name="carta1-jogador" href="#" role="button">1</a>
                     </div>
                     <div class="col">
                         <a class="btn btn-primary" href="#" role="button">2</a>

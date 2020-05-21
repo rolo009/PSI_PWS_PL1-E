@@ -55,18 +55,21 @@ class GameController extends BaseController
     public function iniciarJogo() {
 
         $gameEngine = new gameEngine();
-        $gameEngine = $gameEngine->iniciarJogo();
+        $gameEngine->iniciarJogo();
 
-        Session::set('iniciarJogo', $gameEngine);
+        Session::set('ge', $gameEngine);
 
-        return View::make('jogo_stb.game', $estadoJogo);
+        return View::make('jogo_stb.game', array($gameEngine));
 
     }
 
     public function rolarDados() {
 
-        $gameEngine = new gameEngine();
-        $gameEngine = $gameEngine->rolarDados();
+        $gameEngine = Session::get('ge');
+        $gameEngine -> rolarDados();
+        $gameEngine -> updateEstadoJogo();
+
+        return View::make('jogo_stb.game', $gameEngine);
 
     }
 }

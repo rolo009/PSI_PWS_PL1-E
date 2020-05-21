@@ -59,7 +59,7 @@ class GameController extends BaseController
 
         Session::set('iniciarJogo', $gameEngine);
 
-        return View::make('jogo_stb.game', $estadoJogo);
+        return View::make('jogo_stb.game', $gameEngine);
 
     }
 
@@ -67,6 +67,5 @@ class GameController extends BaseController
 
         $gameEngine = new gameEngine();
         $gameEngine = $gameEngine->rolarDados();
-
     }
 }

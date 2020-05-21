@@ -64,6 +64,7 @@ class GameController extends BaseController
         $gameEngine = Session::get('ge');
         $gameEngine -> rolarDados();
         $gameEngine -> updateEstadoJogo();
+        Session::set('ge', $gameEngine);
 
         return View::make('jogo_stb.game', ['ge' => $gameEngine]);
 

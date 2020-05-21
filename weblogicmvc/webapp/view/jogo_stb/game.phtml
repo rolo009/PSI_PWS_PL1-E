@@ -9,11 +9,14 @@ Layout::includeLayout('menu');
 
 $gameEngine = Data::get('ge');
 
-if($gameEngine -> getEstadoJogo() == 1){
-    echo "link para rolar dados";
+if($gameEngine -> getEstadoJogo() == 1){ ?>
+    <div class="rodar-dado">
+        <button type="button" class="btn btn-outline-secondary">Rodar Dados</button>
+    </div>
+<?php
 }
 else if($gameEngine -> getEstadoJogo() == 2){
-
+    $gameEngine -> tabuleiro -> resultadoDado1 . " + " . $gameEngine -> tabuleiro -> resultadoDado2;
 }
 else if($gameEngine -> getEstadoJogo() == 3){
 
@@ -30,7 +33,7 @@ else if($gameEngine -> getEstadoJogo() == 6){
 
 ?>
 
-<div><a class="btn btn-primary"name = "btn_iniciarJogo" href="<?= URL::toRoute('jogo/iniciarJogo')?>" role="button">Iniciar Jogo</a></div>
+
     <div class="card-body">
         <h5 class="card-title">Pontuação </h5>
         <p class="card-text"> 12 Pontos</p>
@@ -120,9 +123,7 @@ else if($gameEngine -> getEstadoJogo() == 6){
             </div>
         </div>
     </div>
-    <div class="rodar-dado">
-        <button type="button" class="btn btn-outline-secondary">Rodar Dados</button>
-    </div>
+
 </div>
 <div class="rodape">
     <?php Layout::includeLayout('rodape'); ?>

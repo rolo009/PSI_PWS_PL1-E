@@ -10,13 +10,13 @@ class GameEngine
     private $estadoJogo;
 
     public function iniciarJogo(){
-        $estadoJogo = 1;
+        $this -> estadoJogo = 1;
         $numerosBloqueio = new numerosBloqueio();
         $numerosBloqueio = $numerosBloqueio->iniciar();
     }
 
     public function getEstadoJogo($estadoJogo){
-        return $estadoJogo;
+        return $this -> estadoJogo;
     }
     public function updateEstadoJogo($estadoJogo){
         $estadoJogo++;

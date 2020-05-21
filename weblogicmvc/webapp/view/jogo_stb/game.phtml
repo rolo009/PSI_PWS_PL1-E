@@ -2,13 +2,20 @@
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Session;
+use ArmoredCore\WebObjects\Data;
 
 Layout::includeLayout('menu');
 
 
-if($estadoJogo == 1){
+$estadoJogo = Data::get('ge');
 
-}?>
+
+/*if($this -> $estadoJogo == 1){
+
+}*/
+?>
+
 <div><a class="btn btn-primary"name = "btn_iniciarJogo" href="<?= URL::toRoute('jogo/btnIniciarJogo')?>" role="button">Botão Iniciar Jogo</a></div>
     <div class="card-body">
         <h5 class="card-title">Pontuação </h5>
@@ -100,7 +107,7 @@ if($estadoJogo == 1){
         </div>
     </div>
     <div class="rodar-dado">
-        <button type="button" href="<?= URL::toRoute('jogo/btnRodarDados')?>" class="btn btn-outline-secondary">Rodar Dados</button>
+        <button type="button" class="btn btn-outline-secondary">Rodar Dados</button>
     </div>
 </div>
 <div class="rodape">

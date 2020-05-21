@@ -12,14 +12,14 @@ class GameEngine
     public function iniciarJogo(){
         $this -> estadoJogo = 1;
         $numerosBloqueio = new numerosBloqueio();
-        $numerosBloqueio = $numerosBloqueio->iniciar();
+        $numerosBloqueio->iniciar();
     }
 
-    public function getEstadoJogo($estadoJogo){
+    public function getEstadoJogo(){
         return $this -> estadoJogo;
     }
-    public function updateEstadoJogo($estadoJogo){
-        $estadoJogo++;
+    public function updateEstadoJogo(){
+        $this -> estadoJogo += 1;
     }
 
     public function rolarDados(){

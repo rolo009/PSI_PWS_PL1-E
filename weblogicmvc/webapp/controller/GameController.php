@@ -13,10 +13,6 @@ class GameController extends BaseController
         return View::make('jogo_stb.index');
     }
 
-    public function game(){
-
-        return View::make('jogo_stb.game');
-    }
 
     public function register(){
 
@@ -59,7 +55,7 @@ class GameController extends BaseController
 
         Session::set('ge', $gameEngine);
 
-        return View::make('jogo_stb.game', array($gameEngine));
+        return View::make('jogo_stb.game', ['ge' => $gameEngine]);
 
     }
 

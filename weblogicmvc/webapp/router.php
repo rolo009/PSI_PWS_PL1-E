@@ -23,7 +23,7 @@ Router::get('home/login',	'HomeController/login');
 Router::get('home/about','HomeController/about');
 
 Router::get('jogo/index','GameController/index');
-Router::get('jogo/game','GameController/game');
+Router::get('jogo/game','GameController/iniciarJogo');
 Router::get('jogo/instrucoes','GameController/instructions');
 Router::get('jogo/registar','GameController/register');
 Router::get('jogo/login','GameController/login');
@@ -32,7 +32,7 @@ Router::get('jogo/editar_registo','GameController/update_register');
 Router::get('jogo/top10','GameController/topTen');
 Router::get('jogo/admin','GameController/admin');
 
-Router::get('jogo/btnIniciarJogo','GameController/iniciarJogo');
+
 Router::get('jogo/btnRodarDados','GameController/rolarDados');
 
 /************** End of URLEncoder Routing Rules ************************************/

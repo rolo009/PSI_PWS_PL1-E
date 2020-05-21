@@ -33,5 +33,6 @@ Router::get('jogo/top10','GameController/topTen');
 Router::get('jogo/admin','GameController/admin');
 
 Router::get('jogo/btnIniciarJogo','GameController/iniciarJogo');
+Router::get('jogo/btnRodarDados','GameController/rolarDados');
 
 /************** End of URLEncoder Routing Rules ************************************/

@@ -6,7 +6,7 @@ class GameEngine
 {
 
     public $tabuleiro = Tabuleiro::class;
-    
+
     private $estadoJogo;
 
     public function iniciarJogo(){
@@ -23,11 +23,12 @@ class GameEngine
     }
 
     public function rolarDados(){
-
+        $tabuleiro = new Tabuleiro();
         $tabuleiro -> rolarDados();
     }
 
     public function bloquearNumero($numerosBloqueio, $nJogador){
+        $tabuleiro = new Tabuleiro();
         if ($nJogador == 1){
             $tabuleiro -> checkFinalJogadaP1();
         }

@@ -69,7 +69,7 @@ class GameController extends BaseController
         $gameEngine -> rolarDados();
         $gameEngine -> updateEstadoJogo();
 
-        return View::make('jogo_stb.game', $gameEngine);
+        return View::make('jogo_stb.game', ['ge' => $gameEngine]);
 
     }
 }

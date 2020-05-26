@@ -3,17 +3,17 @@
 
 class seletorNumeros
 {
-
-
-    public function validateNumber(){
-
-    }
-
-    public function selection(){
+    public $numerosSelecionados;
+    public $userNumber;
+    public function validateNumber($userNumber, $numerosBloqueio){
 
     }
 
-    public function checkSelectionTotal(){
+    public function selection($userNumber){
+
+    }
+
+    public function checkSelectionTotal($totalDados){
 
     }
 
@@ -21,7 +21,7 @@ class seletorNumeros
 
     }
 
-    public function selectionHasNumber(){
+    public function selectionHasNumber($number){
 
     }
 }

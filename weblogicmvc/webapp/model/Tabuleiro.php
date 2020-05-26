@@ -10,7 +10,7 @@ class Tabuleiro
     private $numerosBloqueioP2 = NumerosBloqueio::class;
 
     public function rolarDados(){
-
+        $dado = new Dado();
         $resultadoDado1 = $dado->rolarDado();
         $resultadoDado2 = $dado->rolarDado();
 

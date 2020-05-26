@@ -28,6 +28,7 @@ class GameEngine
     }
 
     public function bloquearNumero($numerosBloqueio, $nJogador){
+        
         $tabuleiro = new Tabuleiro();
         if ($nJogador == 1){
             $tabuleiro -> checkFinalJogadaP1();

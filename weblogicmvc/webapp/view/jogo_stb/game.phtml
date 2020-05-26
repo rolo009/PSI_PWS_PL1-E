@@ -11,12 +11,12 @@ $gameEngine = Data::get('ge');
 
 if($gameEngine -> getEstadoJogo() == 1){ ?>
     <div class="rodar-dado">
-        <button type="button" class="btn btn-outline-secondary">Rodar Dados</button>
+        <a type="button" href="<?= URL::toRoute('jogo/rodarDados')?>" class="btn btn-outline-secondary">Rodar Dados</a>
     </div>
 <?php
 }
 else if($gameEngine -> getEstadoJogo() == 2){
-    $gameEngine -> tabuleiro -> resultadoDado1 . " + " . $gameEngine -> tabuleiro -> resultadoDado2;
+    echo $gameEngine -> tabuleiro -> resultadoDado1 . " + " . $gameEngine -> tabuleiro -> resultadoDado2;
 }
 else if($gameEngine -> getEstadoJogo() == 3){
 

@@ -56,7 +56,6 @@ class GameController extends BaseController
         Session::set('ge', $gameEngine);
 
         return View::make('jogo_stb.game', ['ge' => $gameEngine]);
-
     }
 
     public function rolarDados() {

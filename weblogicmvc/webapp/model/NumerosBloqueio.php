@@ -3,6 +3,7 @@
 class NumerosBloqueio
 {
     Public $numerosBloqueio = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    
 
     public function iniciar(){
 
@@ -31,6 +32,12 @@ class NumerosBloqueio
     }
 
     public function getFinalPointSum(){
+
+    }
+
+    public function __construct(){
+        $this->seletornumeros = new seletornumeros();
+
 
     }
 }

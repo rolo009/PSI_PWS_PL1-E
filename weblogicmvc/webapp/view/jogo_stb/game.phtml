@@ -16,7 +16,7 @@ if($gameEngine -> getEstadoJogo() == 1){ ?>
 <?php
 }
 
-else if($gameEngine -> getEstadoJogo() == 3){
+if($gameEngine -> getEstadoJogo() == 3){
 
 }
 else if($gameEngine -> getEstadoJogo() == 4){
@@ -43,7 +43,7 @@ else if($gameEngine -> getEstadoJogo() == 6){
             <div class="container card">
                 <div class="row">
                     <div class="col">
-                        <a class="btn btn-primary" name="carta1-jogador" href="#" role="button">1</a>
+                        <a class="btn btn-primary" name="carta1-jogador" href="<?= URL::toRoute('jogo/sel')?>" role="button">1</a>
                     </div>
                     <div class="col">
                         <a class="btn btn-primary" href="#" role="button">2</a>

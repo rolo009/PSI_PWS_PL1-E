@@ -3,16 +3,24 @@
 
 class Tabuleiro
 {
-    private $dado = Dado::class;
-    private $resultadoDado1;
-    private $resultadoDado2;
-    private $numerosBloqueioP1 = NumerosBloqueio::class;
-    private $numerosBloqueioP2 = NumerosBloqueio::class;
+    private $dado;
+    public $resultadoDado1;
+    public $resultadoDado2;
+    private $numerosBloqueioP1;
+    private $numerosBloqueioP2;
+
+    public function __construct(){
+        $this->numerosBloqueioP1 = new NumerosBloqueio();
+        $this->numerosBloqueioP2 = new NumerosBloqueio();
+
+        $this->dado = new Dado();
+
+    }
 
     public function rolarDados(){
-        $dado = new Dado();
-        $resultadoDado1 = $dado->rolarDado();
-        $resultadoDado2 = $dado->rolarDado();
+
+        $this->resultadoDado1 = $this->dado->rolarDado();
+        $this->resultadoDado2 = $this->dado->rolarDado();
 
 }
     public function checkFinalJogadaP1(){

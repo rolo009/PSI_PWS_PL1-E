@@ -5,9 +5,14 @@ include_once ("NumerosBloqueio.php");
 class GameEngine
 {
 
-    public $tabuleiro = Tabuleiro::class;
+    public $tabuleiro;
+
 
     private $estadoJogo;
+
+    public function __construct(){
+        $this->tabuleiro = new Tabuleiro();
+}
 
     public function iniciarJogo(){
         $this -> estadoJogo = 1;
@@ -23,18 +28,18 @@ class GameEngine
     }
 
     public function rolarDados(){
-        $tabuleiro = new Tabuleiro();
-        $tabuleiro -> rolarDados();
+
+        $this->tabuleiro -> rolarDados();
     }
 
     public function bloquearNumero($numerosBloqueio, $nJogador){
         
-        $tabuleiro = new Tabuleiro();
+
         if ($nJogador == 1){
-            $tabuleiro -> checkFinalJogadaP1();
+            $this->tabuleiro -> checkFinalJogadaP1();
         }
         else if ($nJogador == 2){
-            $tabuleiro -> checkFinalJogadaP2();
+            $this->tabuleiro -> checkFinalJogadaP2();
         }
         else {
             echo "Jogador não encontrado!";

@@ -15,9 +15,7 @@ if($gameEngine -> getEstadoJogo() == 1){ ?>
     </div>
 <?php
 }
-else if($gameEngine -> getEstadoJogo() == 2){
-    echo $gameEngine -> tabuleiro -> resultadoDado1 . " + " . $gameEngine -> tabuleiro -> resultadoDado2;
-}
+
 else if($gameEngine -> getEstadoJogo() == 3){
 
 }
@@ -79,12 +77,22 @@ else if($gameEngine -> getEstadoJogo() == 6){
 
             </div>
         </div>
+        <?php
+        if($gameEngine -> getEstadoJogo() == 2){
+        \Tracy\Debugger::barDump($gameEngine);
+        echo $gameEngine -> tabuleiro -> resultadoDado1 . " + " . $gameEngine -> tabuleiro -> resultadoDado2;?>
+
         <div class="col-sm">
             <div class="dados">
-            <img src="<?= Asset::image('dice_r_1.png')?>" alt="logo" style="width:40px;">
-            <img src="<?= Asset::image('dice_w_4.png')?>" alt="logo" style="width:40px;">
+                <img src="<?= Asset::image('dice_r_1.png')?>" alt="logo" style="width:40px;">
+                <img src="<?= Asset::image('dice_w_4.png')?>" alt="logo" style="width:40px;">
             </div>
         </div>
+        <?php
+
+        }
+        ?>
+
         <div class="col-sm">
             <div class="container card">
                 <div class="row">

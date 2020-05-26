@@ -6,11 +6,13 @@ class Tabuleiro
     private $dado;
     public $resultadoDado1;
     public $resultadoDado2;
-    private $numerosBloqueioP1;
-    private $numerosBloqueioP2;
+    public $numerosBloqueioP1;
+
+    public $numerosBloqueioP2;
 
     public function __construct(){
         $this->numerosBloqueioP1 = new NumerosBloqueio();
+        \Tracy\Debugger::barDump($this->numerosBloqueioP1, 'no construtor');
         $this->numerosBloqueioP2 = new NumerosBloqueio();
 
         $this->dado = new Dado();

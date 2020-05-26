@@ -68,4 +68,8 @@ class GameController extends BaseController
         return View::make('jogo_stb.game', ['ge' => $gameEngine]);
 
     }
+
+    public function selecionaNumero($id){
+        echo $id;
+    }
 }

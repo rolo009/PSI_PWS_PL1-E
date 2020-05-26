@@ -16,8 +16,9 @@ class GameEngine
 
     public function iniciarJogo(){
         $this -> estadoJogo = 1;
-        $numerosBloqueio = new numerosBloqueio();
-        $numerosBloqueio->iniciar();
+        $this->tabuleiro->numerosBloqueioP1->iniciar();
+        $this->tabuleiro->numerosBloqueioP2->iniciar();
+
     }
 
     public function getEstadoJogo(){

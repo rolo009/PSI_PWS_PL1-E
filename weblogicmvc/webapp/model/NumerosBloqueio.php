@@ -4,20 +4,26 @@
 
 class NumerosBloqueio
 {
-    Public $numerosBloqueio = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    Public $numerosBloqueio;
     public $seletorNumeros;
 
     public function __construct(){
         $this->seletorNumeros = new seletorNumeros();
-
+        $this->iniciar();
     }
 
     public function iniciar(){
 
-        for ($i = 0; $i <= 9; $i++) {
-            $numerosBloqueio[$i] = false;
-            return $this->numerosBloqueio;
-        }
+        $this->numerosBloqueio['1'] = false;
+        $this->numerosBloqueio['2'] = false;
+        $this->numerosBloqueio['3'] = false;
+        $this->numerosBloqueio['4'] = false;
+        $this->numerosBloqueio['5'] = false;
+        $this->numerosBloqueio['6'] = false;
+        $this->numerosBloqueio['7'] = false;
+        $this->numerosBloqueio['8'] = false;
+        $this->numerosBloqueio['9'] = false;
+
     }
 
     public function bloquearNumeros($numerosSelecionados, $somaDados){
@@ -32,6 +38,10 @@ class NumerosBloqueio
                 }
             }
         }
+    }
+
+    public function getNumerosBloqueio(){
+        return $this->numerosBloqueio;
     }
 
     public function checkFinalJogada(){

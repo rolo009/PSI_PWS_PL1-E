@@ -43,37 +43,26 @@ else if($gameEngine -> getEstadoJogo() == 6){
             <div class="container card">
                 <div class="row">
                     <div class="col">
-                        <a class="btn btn-primary" name="carta1-jogador" href="<?= URL::toRoute('jogo/sel')?>" role="button">1</a>
+                        <?php
+                        if($gameEngine -> getEstadoJogo() == 2){
+
+                        $numerosBloqueadosP1 = $gameEngine->tabuleiro->numerosBloqueioP1->getNumerosBloqueio();
+                            \Tracy\Debugger::barDump($numerosBloqueadosP1);
+                        for ($i = 1; $i<= 9;$i++){
+                            if($numerosBloqueadosP1[$i] == false){?>
+                                <a href="<?= URL::toRoute('jogo/seleciona', $i)?>"><?=$i?></a>
+                        <?php
+                            }
+                            else{ ?>
+                                <?=$i?>
+                        <?php
+                            }
+                        }
+                        }
+                        ?>
+
                     </div>
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">2</a>
-                    </div>
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">3</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">4</a>
-                    </div>
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">5</a>
-                    </div>
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">6</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">7</a>
-                    </div>
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">8</a>
-                    </div>
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">9</a>
-                    </div>
-                </div>
+
 
             </div>
         </div>

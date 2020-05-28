@@ -39,8 +39,9 @@ class seletorNumeros
         }
     }
 
-    public function clearSelection(){
+    public function clearSelection($numerosSelecionados){
         //Remover todos os elementos do vetor this->numerosSelecionados
+        $this->numerosSelecionados = [""];
 
     }
 

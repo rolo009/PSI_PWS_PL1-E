@@ -17,6 +17,7 @@ class seletorNumeros
     public function updateSelection($userNumber){
         if(in_array($userNumber, $this->numerosSelecionados) == true){
             //Eliminar o usernumber do vetor this ->numerosSelecionados
+            array_splice($this->numerosSelecionados, $userNumber);
 
         }
         else{

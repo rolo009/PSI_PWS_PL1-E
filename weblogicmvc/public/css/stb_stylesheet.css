@@ -241,3 +241,8 @@ p{
     display: flex;
     justify-content: center;
 }
+
+.checked{
+    color: white;
+background-color: black;
+}

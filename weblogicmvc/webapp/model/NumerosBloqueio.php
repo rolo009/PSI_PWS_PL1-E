@@ -28,15 +28,8 @@ class NumerosBloqueio
 
     public function bloquearNumeros($numerosSelecionados, $somaDados){
 
-        for ($i = 0; $i < 9; $i++) {
-            for ($j = 0; $j < 2; $j++) {
-                if ($numerosBloqueio[$i] = $numerosSelecionados[$j]) {
-                    $numerosBloqueio[$i] = true;
-                }
-                else{
-                    echo "Número já selecionado!";
-                }
-            }
+        foreach ($numerosSelecionados as $numero){
+            $this->numerosBloqueio[$numero] = true;
         }
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
@@ -9,33 +10,30 @@ Layout::includeLayout('menu');
 
 $gameEngine = Data::get('ge');
 
-if($gameEngine -> getEstadoJogo() == 1){ ?>
+if ($gameEngine->getEstadoJogo() == 1) { ?>
     <div class="rodar-dado">
-        <a type="button" href="<?= URL::toRoute('jogo/rodarDados')?>" class="btn btn-outline-secondary">Rodar Dados</a>
+        <a type="button" href="<?= URL::toRoute('jogo/rodarDados') ?>" class="btn btn-outline-secondary">Rodar Dados</a>
     </div>
-<?php
+    <?php
 }
 
-if($gameEngine -> getEstadoJogo() == 3){
+if ($gameEngine->getEstadoJogo() == 3) {
 
-}
-else if($gameEngine -> getEstadoJogo() == 4){
+} else if ($gameEngine->getEstadoJogo() == 4) {
 
-}
-else if($gameEngine -> getEstadoJogo() == 5){
+} else if ($gameEngine->getEstadoJogo() == 5) {
 
-}
-else if($gameEngine -> getEstadoJogo() == 6){
+} else if ($gameEngine->getEstadoJogo() == 6) {
 
 }
 
 ?>
 
 
-    <div class="card-body">
-        <h5 class="card-title">Pontuação </h5>
-        <p class="card-text"> 12 Pontos</p>
-    </div>
+<div class="card-body">
+    <h5 class="card-title">Pontuação </h5>
+    <p class="card-text"> 12 Pontos</p>
+</div>
 
 <div class="container">
     <div class="row">
@@ -44,85 +42,132 @@ else if($gameEngine -> getEstadoJogo() == 6){
                 <div class="row">
                     <div class="col">
                         <?php
-                        if($gameEngine -> getEstadoJogo() == 2){
+                        if ($gameEngine->getEstadoJogo() == 1) {
 
-                        $numerosBloqueadosP1 = $gameEngine->tabuleiro->numerosBloqueioP1->getNumerosBloqueio();
+                            $numerosBloqueadosP1 = $gameEngine->tabuleiro->numerosBloqueioP1->getNumerosBloqueio();
                             \Tracy\Debugger::barDump($numerosBloqueadosP1);
-                        for ($i = 1; $i<= 9;$i++){
-                            if($numerosBloqueadosP1[$i] == false){?>
-                                <a href="<?= URL::toRoute('jogo/seleciona', $i)?>"><?=$i?></a>
-                        <?php
-                            }
-                            else{ ?>
-                                <?=$i?>
-                        <?php
+                            for ($i = 1; $i <= 9; $i++) {
+                                if ($numerosBloqueadosP1[$i] == false) {
+                                    ?>
+                                    <a class="btn btn-primary" role="button"><?= $i ?></a>
+                                    <?php
+                                } else { ?>
+                                    <a class="btn btn-primary checked" role="button"><?= $i ?></a>
+                                    <?php
+                                }
                             }
                         }
+                        if ($gameEngine->getEstadoJogo() == 2) {
+
+                            $numerosBloqueadosP1 = $gameEngine->tabuleiro->numerosBloqueioP1->getNumerosBloqueio();
+                            \Tracy\Debugger::barDump($numerosBloqueadosP1);
+                            for ($i = 1; $i <= 9; $i++) {
+                                if ($numerosBloqueadosP1[$i] == false) {
+                                    ?>
+                                    <a href="<?= URL::toRoute('jogo/seleciona', $i) ?>" class="btn btn-primary"
+                                       role="button"><?= $i ?></a>
+                                    <?php
+                                } else { ?>
+                                    <a class="btn btn-primary checked" role="button"><?= $i ?></a>
+                                    <?php
+                                }
+                            }
                         }
                         ?>
 
                     </div>
 
 
-            </div>
-        </div>
-        <?php
-        if($gameEngine -> getEstadoJogo() == 2){
-        \Tracy\Debugger::barDump($gameEngine);
-        echo $gameEngine -> tabuleiro -> resultadoDado1 . " + " . $gameEngine -> tabuleiro -> resultadoDado2;?>
-
-        <div class="col-sm">
-            <div class="dados">
-                <img src="<?= Asset::image('dice_r_1.png')?>" alt="logo" style="width:40px;">
-                <img src="<?= Asset::image('dice_w_4.png')?>" alt="logo" style="width:40px;">
-            </div>
-        </div>
-        <?php
-
-        }
-        ?>
-
-        <div class="col-sm">
-            <div class="container card">
-                <div class="row">
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">1</a>
-                    </div>
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">2</a>
-                    </div>
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">3</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">4</a>
-                    </div>
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">5</a>
-                    </div>
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">6</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">7</a>
-                    </div>
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">8</a>
-                    </div>
-                    <div class="col">
-                        <a class="btn btn-primary" href="#" role="button">9</a>
-                    </div>
                 </div>
             </div>
+            <?php
+            if ($gameEngine->getEstadoJogo() == 2) {
+                \Tracy\Debugger::barDump($gameEngine); ?>
+                <div class="col-sm">
+                    <div class="dados">
+                        <?php
+                        if ($gameEngine->tabuleiro->resultadoDado1 == 1) { ?>
+                            <img src="<?= Asset::image('dice_r_1.png') ?>" alt="logo" style="width:40px;">
+                            <?php
+                        } else if ($gameEngine->tabuleiro->resultadoDado1 == 2) { ?>
+                            <img src="<?= Asset::image('dice_r_2.png') ?>" alt="logo" style="width:40px;">
+                            <?php
+                        } else if ($gameEngine->tabuleiro->resultadoDado1 == 3) { ?>
+                            <img src="<?= Asset::image('dice_r_3.png') ?>" alt="logo" style="width:40px;">
+                        <?php } else if ($gameEngine->tabuleiro->resultadoDado1 == 4) { ?>
+                            <img src="<?= Asset::image('dice_r_4.png') ?>" alt="logo" style="width:40px;">
+                            <?php
+                        } else if ($gameEngine->tabuleiro->resultadoDado1 == 5) { ?>
+                            <img src="<?= Asset::image('dice_r_5.png') ?>" alt="logo" style="width:40px;">
+                            <?php
+                        } else if ($gameEngine->tabuleiro->resultadoDado1 == 6) { ?>
+                            <img src="<?= Asset::image('dice_r_6.png') ?>" alt="logo" style="width:40px;">
+                            <?php
+                        }
+                        if ($gameEngine->tabuleiro->resultadoDado2 == 1) { ?>
+                            <img src="<?= Asset::image('dice_w_1.png') ?>" alt="logo" style="width:40px;">
+                        <?php } else if ($gameEngine->tabuleiro->resultadoDado2 == 2) { ?>
+                            <img src="<?= Asset::image('dice_w_2.png') ?>" alt="logo" style="width:40px;">
+                        <?php } else if ($gameEngine->tabuleiro->resultadoDado2 == 3) { ?>
+                            <img src="<?= Asset::image('dice_w_3.png') ?>" alt="logo" style="width:40px;">
+                        <?php } else if ($gameEngine->tabuleiro->resultadoDado2 == 4) { ?>
+                            <img src="<?= Asset::image('dice_w_4.png') ?>" alt="logo" style="width:40px;">
+                        <?php } else if ($gameEngine->tabuleiro->resultadoDado2 == 5) { ?>
+                            <img src="<?= Asset::image('dice_w_5.png') ?>" alt="logo" style="width:40px;">
+                        <?php } else if ($gameEngine->tabuleiro->resultadoDado2 == 6) { ?>
+                            <img src="<?= Asset::image('dice_w_6.png') ?>" alt="logo" style="width:40px;">
+                        <?php }
+
+                        ?>
+
+                    </div>
+                </div>
+                <?php
+
+            }
+            ?>
+
+            <div class="col-sm">
+                <div class="container card">
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-primary" href="#" role="button">1</a>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-primary" href="#" role="button">2</a>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-primary" href="#" role="button">3</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-primary" href="#" role="button">4</a>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-primary" href="#" role="button">5</a>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-primary" href="#" role="button">6</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-primary" href="#" role="button">7</a>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-primary" href="#" role="button">8</a>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-primary" href="#" role="button">9</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
-
-</div>
-<div class="rodape">
-    <?php Layout::includeLayout('rodape'); ?>
-</div>
+    <div class="rodape">
+        <?php Layout::includeLayout('rodape'); ?>
+    </div>
 

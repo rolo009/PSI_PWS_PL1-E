@@ -3,10 +3,12 @@
 
 class seletorNumeros
 {
-    private $numerosSelecionados;
-    private $userNumber;
+    private $numerosSelecionados = array();
+    //private $userNumber;
+
     public function validateNumber($userNumber, $numerosBloqueio){
-        if($numerosBloqueio[$userNumber] == true){
+        $nb = $numerosBloqueio->getNumerosBloqueio();
+        if($nb[$userNumber] == true){
             return false;
         }
         else{
@@ -14,15 +16,18 @@ class seletorNumeros
         }
     }
 
-    public function updateSelection($userNumber){
-        if(in_array($userNumber, $this->numerosSelecionados) == true){
-            //Eliminar o usernumber do vetor this ->numerosSelecionados
-            array_splice($this->numerosSelecionados, $userNumber);
+    public function getNumerosSelecionados(){
+        return $this->numerosSelecionados;
+    }
 
-        }
-        else{
+    public function updateSelection($userNumber){
+        //if(in_array($userNumber, $this->numerosSelecionados) == true){
+            //Eliminar o usernumber do vetor this ->numerosSelecionados
+
+       // }
+        //else{
             array_push($this->numerosSelecionados, $userNumber);
-        }
+        //}
     }
 
     public function checkSelectionTotal($totalDados){
@@ -40,9 +45,9 @@ class seletorNumeros
         }
     }
 
-    public function clearSelection($numerosSelecionados){
+    public function clearSelection(){
         //Remover todos os elementos do vetor this->numerosSelecionados
-        $this->numerosSelecionados = [""];
+        $this->numerosSelecionados = array();
 
     }
 

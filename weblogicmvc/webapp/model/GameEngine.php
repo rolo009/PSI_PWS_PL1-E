@@ -27,6 +27,12 @@ class GameEngine
 
     public function updateEstadoJogo(){
         $this -> estadoJogo += 1;
+
+
+    }
+
+    public function goToEstadoRolarDados(){
+        $this -> estadoJogo = 1;
     }
 
     public function rolarDados(){

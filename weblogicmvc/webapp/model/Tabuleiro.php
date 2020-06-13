@@ -25,14 +25,38 @@ class Tabuleiro
         $this->resultadoDado2 = $this->dado->rolarDado();
 
 }
-    public function checkFinalJogadaP1(){
+    public function checkFinalJogadaP1($nb){
 
+        $total = 0;
+        for($i = 1; $i <= 9; $i ++){
+            if($nb[$i] == false){
+                $total += $i;
+            }
+        }
+        return $total;
 }
-    public function checkFinalJogadaP2(){
-
+    public function checkFinalJogadaP2($nb){
+        $total = 0;
+        for($i = 1; $i <= 9; $i ++){
+            if($nb[$i] == false){
+                $total += $i;
+            }
+        }
+        return $total;
 }
     public function getVencedor(){
+    $totalP1 = $this -> checkFinalJogadaP1();
+    $totalP2 = $this -> checkFinalJogadaP2();
 
+    if($totalP1 > $totalP2){
+        return $winner = "Jogador 2";
+    }
+    else if ($totalP1 < $totalP2){
+        return $winner = "Jogador 1";
+    }
+    else if ($totalP1 == $totalP2){
+        $winner = "Empate";
+    }
 }
     public function getPointsVencedor(){
 

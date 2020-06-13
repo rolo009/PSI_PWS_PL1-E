@@ -25,6 +25,8 @@ SET time_zone = "+00:00";
 --
 -- Estrutura da tabela `books`
 --
+Create database webapp;
+use webapp;
 
 CREATE TABLE IF NOT EXISTS `books` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

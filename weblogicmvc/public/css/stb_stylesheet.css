@@ -148,7 +148,11 @@ body{
     margin-bottom: 10%;
 }
 
-.card-body{
+.acabar-jogo{
+    margin-top: 10px;
+}
+
+.pontuacao{
     position: absolute;
     margin-top: 2%;
     right:5%;
@@ -245,4 +249,9 @@ p{
 .checked{
     color: white;
 background-color: black;
+}
+
+.checked-p2{
+    color: white;
+    background-color: black;
 }

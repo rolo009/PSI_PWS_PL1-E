@@ -31,8 +31,12 @@ class GameEngine
 
     }
 
-    public function goToEstadoRolarDados(){
+    public function goToEstadoRolarDadosP1(){
         $this -> estadoJogo = 1;
+    }
+
+    public function goToEstadoRolarDadosP2(){
+        $this -> estadoJogo = 3;
     }
 
     public function rolarDados(){

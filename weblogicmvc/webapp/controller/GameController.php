@@ -66,7 +66,7 @@ class GameController extends BaseController
         Session::set('ge', $gameEngine);
 
         return View::make('jogo_stb.game', ['ge' => $gameEngine]);
-
+\Tracy\Debugger::barDump($gameEngine, "gameEngine rolar Dados");
     }
 
     public function selecionaNumeroP1($number){
@@ -97,7 +97,7 @@ class GameController extends BaseController
                     $seletor->clearSelection();
 
                     //Só para EXPERIMENTAR!
-                    $gameEngine->goToEstadoRolarDados();
+                    $gameEngine->goToEstadoRolarDadosP1();
                 }
 
             }else{
@@ -107,6 +107,19 @@ class GameController extends BaseController
         Session::set('ge', $gameEngine);
 
         return View::make('jogo_stb.game', ['ge' => $gameEngine]);
+    }
+
+    public function fimJogoP1() {
+
+        $gameEngine = Session::get('ge');
+
+        $gameEngine -> updateEstadoJogo();
+        Session::set('ge', $gameEngine);
+
+        $gameEngine->tabuleiro->checkFinalJogadaP1($gameEngine->tabuleiro->numerosBloqueioP1->getNumerosBloqueio());
+
+        return View::make('jogo_stb.game', ['ge' => $gameEngine]);
+\Tracy\Debugger::barDump($gameEngine);
     }
 
     public function selecionaNumeroP2($number){
@@ -138,7 +151,7 @@ class GameController extends BaseController
                 $seletor->clearSelection();
 
                 //Só para EXPERIMENTAR!
-                $gameEngine->goToEstadoRolarDados();
+                $gameEngine->goToEstadoRolarDadosP2();
             }
 
         }else{
@@ -148,5 +161,16 @@ class GameController extends BaseController
         Session::set('ge', $gameEngine);
 
         return View::make('jogo_stb.game', ['ge' => $gameEngine]);
+    }
+
+    public function fimJogoP2() {
+
+        $gameEngine = Session::get('ge');
+
+        $gameEngine -> updateEstadoJogo();
+        Session::set('ge', $gameEngine);
+
+        return View::make('jogo_stb.game', ['ge' => $gameEngine]);
+
     }
 }

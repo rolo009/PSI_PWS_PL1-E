@@ -11,14 +11,13 @@ class UserController extends BaseController implements ResourceControllerInterfa
     {
         $user = User::all();
         View::make('jogo_stb.index', ['user' => $user]);
-
     }
 
     public function store()
     {
         // create new resource (activerecord/model) instance
         // your form name fields must match the ones of the table fields
-        $user = new user(Post::getAll());
+        $user = new User(Post::getAll());
 
         if($user->is_valid()){
             $user->save();
@@ -31,7 +30,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     public function create()
     {
-        /*View::make('user.create');*/
+        return View::make('jogo_stb.register');
     }
 
     public function show($id)
@@ -75,9 +74,9 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     public function destroy($id)
     {
-        /*$book = Book::find($id);
-        $book->delete();
-        Redirect::toRoute('book/index');*/
+        $user = User::find($id);
+        $user->delete();
+        Redirect::toRoute('jogo_stb/index');
     }
 
 }

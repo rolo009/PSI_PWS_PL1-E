@@ -10,28 +10,38 @@ Layout::includeLayout('menu');
 
 $gameEngine = Data::get('ge');
 
-if ($gameEngine->getEstadoJogo() == 1) { ?>
+?>
+<?php
+if ($gameEngine->getEstadoJogo() == 5) {
+
+    $totalP1 = $gameEngine->tabuleiro->checkFinalJogadaP1($gameEngine->tabuleiro->numerosBloqueioP1->getNumerosBloqueio());
+    $totalP2 = $gameEngine->tabuleiro->checkFinalJogadaP2($gameEngine->tabuleiro->numerosBloqueioP2->getNumerosBloqueio());
+
+    if ($totalP1 > $totalP2) {
+        $winner = "Jogador 2";
+    } else if ($totalP1 < $totalP2) {
+        $winner = "Jogador 1";
+    } else if ($totalP1 == $totalP2) {
+        $winner = "Empate";
+    }
+    ?>
+    <div class="card-body pontuacao">
+        <h5 class="card-title">Pontuação P1 </h5>
+        <p class="card-text"> <?= $totalP1 ?> Pontos</p>
+        <h5 class="card-title">Pontuação P2 </h5>
+        <p class="card-text"> <?= $totalP2 ?> Pontos</p>
+        <h5 class="card-title">VENCEDOR </h5>
+        <p class="card-text"> <?= $winner ?> </p>
+
+            <a type="button" href="<?= URL::toRoute('jogo/game') ?>"
+               class="btn btn-outline-secondary">Iniciar novo Jogo</a>
+
+    </div>
 
     <?php
 }
-
-if ($gameEngine->getEstadoJogo() == 3) {
-
-} else if ($gameEngine->getEstadoJogo() == 4) {
-
-} else if ($gameEngine->getEstadoJogo() == 5) {
-
-} else if ($gameEngine->getEstadoJogo() == 6) {
-
-}
-
 ?>
 
-
-<div class="card-body">
-    <h5 class="card-title">Pontuação </h5>
-    <p class="card-text"> 12 Pontos</p>
-</div>
 
 <div class="container">
     <div class="row">
@@ -41,7 +51,7 @@ if ($gameEngine->getEstadoJogo() == 3) {
                     <div class="col">
                         <?php
 
-                        if ($gameEngine->getEstadoJogo() == 1) {
+                        if ($gameEngine->getEstadoJogo() != 2) {
                             $numerosBloqueadosP1 = $gameEngine->tabuleiro->numerosBloqueioP1->getNumerosBloqueio();
                             \Tracy\Debugger::barDump($numerosBloqueadosP1);
                             for ($i = 1; $i <= 9; $i++) {
@@ -77,7 +87,7 @@ if ($gameEngine->getEstadoJogo() == 3) {
             <div class="col-sm">
                 <div class="dados">
                     <?php
-                    if ($gameEngine->getEstadoJogo() == 2) {
+                    if ($gameEngine->getEstadoJogo() == 2 || $gameEngine->getEstadoJogo() == 4) {
                         \Tracy\Debugger::barDump($gameEngine); ?>
 
                         <?php
@@ -112,8 +122,23 @@ if ($gameEngine->getEstadoJogo() == 3) {
                         <?php } else if ($gameEngine->tabuleiro->resultadoDado2 == 6) { ?>
                             <img src="<?= Asset::image('dice_w_6.png') ?>" alt="logo" style="width:40px;">
                         <?php }
+
+                        if ($gameEngine->getEstadoJogo() == 2) {
+                            ?>
+                            <div class="acabar-jogo">
+                                <a type="button" href="<?= URL::toRoute('jogo/fimP1') ?>"
+                                   class="btn btn-outline-secondary">Acabar Jogo - P1</a>
+                            </div>
+                            <?php
+                        } else if ($gameEngine->getEstadoJogo() == 4) { ?>
+                            <div class="acabar-jogo">
+                                <a type="button" href="<?= URL::toRoute('jogo/fimP2') ?>"
+                                   class="btn btn-outline-secondary">Acabar Jogo - P2</a>
+                            </div>
+                            <?php
+                        }
                     }
-                    if ($gameEngine->getEstadoJogo() == 1) { ?>
+                    if ($gameEngine->getEstadoJogo() == 1 || $gameEngine->getEstadoJogo() == 3) { ?>
                         <div class="rodar-dado">
                             <a type="button" href="<?= URL::toRoute('jogo/rodarDados') ?>"
                                class="btn btn-outline-secondary">Rodar Dados</a>
@@ -131,8 +156,8 @@ if ($gameEngine->getEstadoJogo() == 3) {
 
                         if ($gameEngine->getEstadoJogo() != 4) {
 
-                            $numerosBloqueadosP2 = $gameEngine->tabuleiro->numerosBloqueioP1->getNumerosBloqueio();
-                            \Tracy\Debugger::barDump($numerosBloqueadosP1);
+                            $numerosBloqueadosP2 = $gameEngine->tabuleiro->numerosBloqueioP2->getNumerosBloqueio();
+                            \Tracy\Debugger::barDump($numerosBloqueadosP2, "GameEngine");
                             for ($i = 1; $i <= 9; $i++) {
                                 if ($numerosBloqueadosP2[$i] == false) {
                                     ?>
@@ -144,7 +169,7 @@ if ($gameEngine->getEstadoJogo() == 3) {
                                 }
                             }
                         }
-                        if ($gameEngine->getEstadoJogo() == 5) {
+                        if ($gameEngine->getEstadoJogo() == 4) {
 
                             $numerosBloqueadosP2 = $gameEngine->tabuleiro->numerosBloqueioP2->getNumerosBloqueio();
                             \Tracy\Debugger::barDump($numerosBloqueadosP2);
@@ -162,11 +187,11 @@ if ($gameEngine->getEstadoJogo() == 3) {
                         }
                         ?>
                     </div>
+                </div>
             </div>
-        </div>
 
-    </div>
-    <div class="rodape">
-        <?php Layout::includeLayout('rodape'); ?>
-    </div>
+        </div>
+        <div class="rodape">
+            <?php Layout::includeLayout('rodape'); ?>
+        </div>
 

@@ -21,13 +21,13 @@ class seletorNumeros
     }
 
     public function updateSelection($userNumber){
-        //if(in_array($userNumber, $this->numerosSelecionados) == true){
-            //Eliminar o usernumber do vetor this ->numerosSelecionados
+        if(in_array($userNumber, $this->numerosSelecionados) == true){
+            $this ->numerosSelecionados = array();
 
-       // }
-        //else{
+       }
+        else{
             array_push($this->numerosSelecionados, $userNumber);
-        //}
+        }
     }
 
     public function checkSelectionTotal($totalDados){

@@ -36,5 +36,6 @@ Router::get('jogo/admin','GameController/admin');
 
 Router::get('jogo/rodarDados','GameController/rolarDados');
 Router::get('jogo/seleciona','GameController/selecionaNumeroP1');
+Router::get('jogo/selecionaP2','GameController/selecionaNumeroP2');
 
 /************** End of URLEncoder Routing Rules ************************************/

@@ -1,9 +1,13 @@
 <?php
+use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('menu'); ?>
+<?php $user = Data::get('users');
+\Tracy\Debugger::barDump($user);?>
+
 
 <div class="modal-dialog modal-login">
     <div class="modal-content">
@@ -12,30 +16,30 @@ Layout::includeLayout('menu'); ?>
         </div>
         <h4 class="modal-title">Registar</h4>
         <div class="modal-body">
-            <form action="" method="post">
+            <form action="<?=Url::toRoute('user/store')?>" method="post">
                 <div class="form-group">
                     <i class="fa fa-user"></i>
-                    <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+                    <input type="text" class="form-control" name="<?=$user->username?>" placeholder="Username" required="required">
                 </div>
                 <div class="form-group">
                     <i class="fa fa-user"></i>
-                    <input type="text" class="form-control" name="name" placeholder="Nome" required="required">
+                    <input type="text" class="form-control" name="<?=$user->name?>" placeholder="Nome" required="required">
                 </div>
                 <div class="form-group">
                     <i class="fa fa-user"></i>
-                    <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+                    <input type="email" class="form-control" name="<?=$user->email?>" placeholder="Email" required="required">
                 </div>
                 <div class="form-group">
                     <i class="fa fa-lock"></i>
-                    <input type="password" class="form-control" name="password" placeholder="Palavra Passe" required="required">
+                    <input type="password" class="form-control" name="<?=$user->password?>" placeholder="Palavra Passe" required="required">
                 </div>
                 <div class="form-group">
                     <i class="fa fa-lock"></i>
-                    <input type="password" class="form-control" name="password_confirm" placeholder="Confirmar Palavra Passe" required="required">
+                    <input type="password" class="form-control" name="<?=$user->password_confirm?>" placeholder="Confirmar Palavra Passe" required="required">
                 </div>
                 <div class="form-group">
                     <i class="fa fa-user"></i>
-                    <input type="date" class="form-control" name="data_nasc" required="required">
+                    <input type="date" class="form-control" name="<?=$user->data_nasc?>" required="required">
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary btn-block btn-lg" value="Registar">

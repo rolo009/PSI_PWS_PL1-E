@@ -88,7 +88,7 @@ class GameController extends BaseController
                 \Tracy\Debugger::barDump($seletor->getNumerosSelecionados(),'Numeros escolhidos');
 
                 if($seletor->checkSelectionTotal($somaDados)){
-                    //$gameEngine->updateEstadoJogo();
+
 
                     //Bloquear Numeros definitivamente porque a soma dos numeros corresponde a soma dos dados
 
@@ -99,8 +99,51 @@ class GameController extends BaseController
                     //Só para EXPERIMENTAR!
                     $gameEngine->goToEstadoRolarDados();
                 }
+
+            }else{
+                //$gameEngine->updateEstadoJogo();
             }
 
+        Session::set('ge', $gameEngine);
+
+        return View::make('jogo_stb.game', ['ge' => $gameEngine]);
+    }
+
+    public function selecionaNumeroP2($number){
+
+        $gameEngine = Session::get("ge");
+        //$gameEngine = new GameEngine();
+
+
+        \Tracy\Debugger::barDump($number, 'Numero escolhido');
+        $somaDados = $gameEngine->tabuleiro->resultadoDado1 + $gameEngine->tabuleiro->resultadoDado2;
+
+
+        $seletor = $gameEngine->tabuleiro->numerosBloqueioP1->seletorNumeros;
+
+
+        if($seletor->validateNumber($number, $gameEngine->tabuleiro->numerosBloqueioP2)){
+
+            \Tracy\Debugger::barDump($number, 'Numero Validado');
+            $seletor->updateSelection($number);
+            \Tracy\Debugger::barDump($seletor->getNumerosSelecionados(),'Numeros escolhidos');
+
+            if($seletor->checkSelectionTotal($somaDados)){
+
+
+                //Bloquear Numeros definitivamente porque a soma dos numeros corresponde a soma dos dados
+
+                $gameEngine->tabuleiro->numerosBloqueioP2->bloquearNumeros($seletor->getNumerosSelecionados(), $somaDados);
+
+                $seletor->clearSelection();
+
+                //Só para EXPERIMENTAR!
+                $gameEngine->goToEstadoRolarDados();
+            }
+
+        }else{
+            //$gameEngine->updateEstadoJogo();
+        }
 
         Session::set('ge', $gameEngine);
 

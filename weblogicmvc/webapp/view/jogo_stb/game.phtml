@@ -11,9 +11,7 @@ Layout::includeLayout('menu');
 $gameEngine = Data::get('ge');
 
 if ($gameEngine->getEstadoJogo() == 1) { ?>
-    <div class="rodar-dado">
-        <a type="button" href="<?= URL::toRoute('jogo/rodarDados') ?>" class="btn btn-outline-secondary">Rodar Dados</a>
-    </div>
+
     <?php
 }
 
@@ -42,8 +40,8 @@ if ($gameEngine->getEstadoJogo() == 3) {
                 <div class="row">
                     <div class="col">
                         <?php
-                        if ($gameEngine->getEstadoJogo() == 1) {
 
+                        if ($gameEngine->getEstadoJogo() == 1) {
                             $numerosBloqueadosP1 = $gameEngine->tabuleiro->numerosBloqueioP1->getNumerosBloqueio();
                             \Tracy\Debugger::barDump($numerosBloqueadosP1);
                             for ($i = 1; $i <= 9; $i++) {
@@ -58,7 +56,6 @@ if ($gameEngine->getEstadoJogo() == 3) {
                             }
                         }
                         if ($gameEngine->getEstadoJogo() == 2) {
-
                             $numerosBloqueadosP1 = $gameEngine->tabuleiro->numerosBloqueioP1->getNumerosBloqueio();
                             \Tracy\Debugger::barDump($numerosBloqueadosP1);
                             for ($i = 1; $i <= 9; $i++) {
@@ -74,17 +71,15 @@ if ($gameEngine->getEstadoJogo() == 3) {
                             }
                         }
                         ?>
-
                     </div>
-
-
                 </div>
             </div>
-            <?php
-            if ($gameEngine->getEstadoJogo() == 2) {
-                \Tracy\Debugger::barDump($gameEngine); ?>
-                <div class="col-sm">
-                    <div class="dados">
+            <div class="col-sm">
+                <div class="dados">
+                    <?php
+                    if ($gameEngine->getEstadoJogo() == 2) {
+                        \Tracy\Debugger::barDump($gameEngine); ?>
+
                         <?php
                         if ($gameEngine->tabuleiro->resultadoDado1 == 1) { ?>
                             <img src="<?= Asset::image('dice_r_1.png') ?>" alt="logo" style="width:40px;">
@@ -117,52 +112,56 @@ if ($gameEngine->getEstadoJogo() == 3) {
                         <?php } else if ($gameEngine->tabuleiro->resultadoDado2 == 6) { ?>
                             <img src="<?= Asset::image('dice_w_6.png') ?>" alt="logo" style="width:40px;">
                         <?php }
-
-                        ?>
-
-                    </div>
+                    }
+                    if ($gameEngine->getEstadoJogo() == 1) { ?>
+                        <div class="rodar-dado">
+                            <a type="button" href="<?= URL::toRoute('jogo/rodarDados') ?>"
+                               class="btn btn-outline-secondary">Rodar Dados</a>
+                        </div>
+                    <?php }
+                    ?>
                 </div>
-                <?php
+            </div>
 
-            }
-            ?>
 
             <div class="col-sm">
                 <div class="container card">
                     <div class="row">
-                        <div class="col">
-                            <a class="btn btn-primary" href="#" role="button">1</a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-primary" href="#" role="button">2</a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-primary" href="#" role="button">3</a>
-                        </div>
+                        <?php
+
+                        if ($gameEngine->getEstadoJogo() != 4) {
+
+                            $numerosBloqueadosP2 = $gameEngine->tabuleiro->numerosBloqueioP1->getNumerosBloqueio();
+                            \Tracy\Debugger::barDump($numerosBloqueadosP1);
+                            for ($i = 1; $i <= 9; $i++) {
+                                if ($numerosBloqueadosP2[$i] == false) {
+                                    ?>
+                                    <a class="btn btn-primary" role="button"><?= $i ?></a>
+                                    <?php
+                                } else { ?>
+                                    <a class="btn btn-primary checked-p2" role="button"><?= $i ?></a>
+                                    <?php
+                                }
+                            }
+                        }
+                        if ($gameEngine->getEstadoJogo() == 5) {
+
+                            $numerosBloqueadosP2 = $gameEngine->tabuleiro->numerosBloqueioP2->getNumerosBloqueio();
+                            \Tracy\Debugger::barDump($numerosBloqueadosP2);
+                            for ($i = 1; $i <= 9; $i++) {
+                                if ($numerosBloqueadosP2[$i] == false) {
+                                    ?>
+                                    <a href="<?= URL::toRoute('jogo/selecionaP2', $i) ?>" class="btn btn-primary"
+                                       role="button"><?= $i ?></a>
+                                    <?php
+                                } else { ?>
+                                    <a class="btn btn-primary checked" role="button"><?= $i ?></a>
+                                    <?php
+                                }
+                            }
+                        }
+                        ?>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <a class="btn btn-primary" href="#" role="button">4</a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-primary" href="#" role="button">5</a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-primary" href="#" role="button">6</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <a class="btn btn-primary" href="#" role="button">7</a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-primary" href="#" role="button">8</a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-primary" href="#" role="button">9</a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 

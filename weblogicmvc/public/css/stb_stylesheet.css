@@ -122,7 +122,7 @@ body{
 }
 
 .dados{
-    align-content: center;
+    align-items: center;
 }
 .btn-outline-secondary{
     margin-top: 5%;

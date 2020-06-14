@@ -14,7 +14,7 @@ use ArmoredCore\WebKernel\MicroKernel;
 
 define('CONTAINER_TYPE', 'FireWire://WebApp');
 
-define('BASE_URL', 'http://localhost/projeto_pws');
+define('BASE_URL', 'http://localhost/weblogicmvc');
 define('BASE_DIR', realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..'));
 
 define('APP_DIR', realpath(__DIR__ . DIRECTORY_SEPARATOR . '..'));

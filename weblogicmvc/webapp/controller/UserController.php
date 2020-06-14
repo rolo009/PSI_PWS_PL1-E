@@ -5,7 +5,7 @@ use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 
-class UserController extends BaseController implements ResourceControllerInterface
+class UserController extends BaseController
 {
     public function conexao()
     {
@@ -26,13 +26,13 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     public function index()
     {
-        /* $user = User::all();
-         View::make('jogo_stb.index', ['user' => $user]);*/
+       /* $user = User::all();
+        View::make('jogo_stb.index', ['user' => $user]);*/
     }
 
     public function store()
     {
-        $servername = "localhost";
+        $servername = "localhost:3308";
         $username = "root";
         $password = "";
         $dbname = "shutthebox";
@@ -50,20 +50,18 @@ class UserController extends BaseController implements ResourceControllerInterfa
             $dtaNascimento = Post::get("dtaNascimento");
 
             if($password == $confirmPassword){
-                $sql = "INSERT INTO users (username, nome, email, pasword, dtaNascimento)
-            VALUES ($username, $nome, $email, $password, $confirmPassword, $dtaNascimento)";
+                $sql = "INSERT INTO users (id_user, username, nome, email, password, dtaNascimento) 
+                VALUES (NULL, '$username', '$nome', '$email', '$password', '$dtaNascimento')";
 
                 $conn -> exec($sql);
             }
 
-            echo "New record created successfully";
+            return View::make('jogo_stb.login');
         } catch(PDOException $e) {
-            echo "<br>" . $e->getMessage();
+            echo $e->getMessage();
         }
 
         $conn = null;
-
-
 
     }
 
@@ -72,50 +70,16 @@ class UserController extends BaseController implements ResourceControllerInterfa
         return View::make('jogo_stb.register');
     }
 
-    public function show($id)
+    public function login()
     {
-        $user = User::find($id);
 
-        \Tracy\Debugger::barDump($user);
-
-        if (is_null($user)) {
-            // redirect to standard error page
-        } else {
-            View::make('user.show', ['user' => $user]);
-        }
     }
 
-    public function edit($id)
+    public function editar_reg()
     {
-        /*$book = Book::find($id);
 
-        if (is_null($book)) {
-            // redirect to standard error page
-        } else {
-            View::make('book.edit', ['book' => $book]);
-        }*/
-    }
-
-    public function update($id)
-    {
-        /*$book = Book::find($id);
-        $book->update_attributes(Post::getAll());
-
-        if($book->is_valid()){
-            $book->save();
-            Redirect::toRoute('book/index');
-        } else {
-            // return form with data and errors
-            Redirect::flashToRoute('book/edit', ['book' => $book], $id);
-        }*/
     }
 
 
-    public function destroy($id)
-    {
-        $user = User::find($id);
-        $user->delete();
-        Redirect::toRoute('jogo_stb/index');
-    }
 
 }

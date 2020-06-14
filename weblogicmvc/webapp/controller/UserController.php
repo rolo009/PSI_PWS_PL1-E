@@ -57,6 +57,10 @@ class UserController extends BaseController
                 $conn -> exec($sql);
             }
 
+            echo '<script type="text/javascript">';
+            echo ' alert("O registo foi feito com sucesso!")';  //not showing an alert box.
+            echo '</script>';
+
             return View::make('jogo_stb.login');
         } catch(PDOException $e) {
             echo $e->getMessage();
@@ -88,13 +92,18 @@ class UserController extends BaseController
             $stmt = $conn->prepare("SELECT * FROM users WHERE email='$email' and password='$password'");
             $stmt->execute();
 
-            if ($stmt->execute()  == 1){
+            if ($stmt->execute() == 1) {
                 session::set($username, 'username');
-
+                echo '<script type="text/javascript">';
+                echo ' alert("O login foi feito com sucesso!")';  //not showing an alert box.
+                echo '</script>';
 
                 return View::make('jogo_stb.instructions');
+            } else if (!isset($_SESSION['username'])){
+                echo '<script type="text/javascript">';
+                echo ' alert("Dados inválidos!")';  //not showing an alert box.
+                echo '</script>';
             }
-
             // set the resulting array to associative
             /*$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
             foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {

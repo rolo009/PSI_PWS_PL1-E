@@ -72,12 +72,20 @@ class UserController extends BaseController
                     return View::make('jogo_stb.register');
                 }
 
-            }
-            echo '<script type="text/javascript">';
-            echo 'alert("O registo foi efetuado com sucesso!")';
-            echo '</script>';
+                echo '<script type="text/javascript">';
+                echo 'alert("O registo foi efetuado com sucesso!")';
+                echo '</script>';
 
-            return View::make('jogo_stb.login');
+                return View::make('jogo_stb.login');
+
+            }else{
+                echo '<script type="text/javascript">';
+                echo 'alert("As passwords não são iguais!")';
+                echo '</script>';
+
+                return View::make('jogo_stb.register');
+            }
+
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
@@ -212,11 +220,17 @@ class UserController extends BaseController
 
                     // execute the query
                     $stmt->execute();
+
+                    echo '<script type="text/javascript">';
+                    echo 'alert("O registo foi editado com sucesso!")';
+                    echo '</script>';
+                }else{
+                    echo '<script type="text/javascript">';
+                    echo 'alert("As passwords não são iguais!")';
+                    echo '</script>';
                 }
             }
-            echo '<script type="text/javascript">';
-            echo 'alert("O registo foi editado com sucesso!")';
-            echo '</script>';
+
 
             return View::make('jogo_stb.private_area');
 

@@ -52,12 +52,25 @@ class UserController extends BaseController
             $dtaNascimento = Post::get("dtaNascimento");
 
             if ($password == $confirmPassword) {
-                $sql = "INSERT INTO users (id_user, username, nome, email, password, dtaNascimento, tipoUser, estadoConta) 
+
+
+                $check_duplicates = $conn->prepare("SELECT * FROM users WHERE email='$email' or username='$username'");
+                $check_duplicates->execute();
+
+                $row = $check_duplicates->rowCount();
+
+                if ($row == 0) {
+                    $sql = "INSERT INTO users (id_user, username, nome, email, password, dtaNascimento, tipoUser, estadoConta) 
                 VALUES (NULL, '$username', '$nome', '$email', '$password', '$dtaNascimento', DEFAULT, DEFAULT)";
 
-                $conn->exec($sql);
-            }
+                    $conn->exec($sql);
+                } else {
+                    echo "Utilizador já registado!";
+                    return View::make('jogo_stb.register');
+                }
 
+            }
+            echo "Utilizador registado com sucesso!!";
             return View::make('jogo_stb.login');
         } catch (PDOException $e) {
             echo $e->getMessage();
@@ -90,12 +103,17 @@ class UserController extends BaseController
 
             $row = $stmt->rowCount();
             if ($row == 1) {
-                        session::set($email, 'email');
-                        session::set($row['id_user'], 'id_user');
+                while($lista = $stmt -> fetch(PDO::FETCH_ASSOC)):
+$id = $lista['id_user'];
+                Session::set('email', $email);
+                Session::set('id_user', $id);
 
-                        return View::make('jogo_stb.instructions', ['email' => $email]);
-            }
-            else{
+                    return View::make('jogo_stb.instructions');
+
+
+                endwhile;
+
+            } else {
                 return View::make('jogo_stb.login');
             }
 
@@ -169,7 +187,11 @@ class UserController extends BaseController
         } catch (PDOException $e) {
             echo $sql . "<br>" . $e->getMessage();
         }
-
-
     }
+    public function logout()
+    {
+        Session::destroy();
+        Redirect::toRoute('jogo/index');
+    }
+
 }

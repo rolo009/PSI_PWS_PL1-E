@@ -84,7 +84,6 @@ class GameController extends BaseController
     public function selecionaNumeroP1($number)
     {
         $gameEngine = Session::get('ge');
-        //$gameEngine = new GameEngine();
 
 
         \Tracy\Debugger::barDump($number, 'Numero escolhido');
@@ -214,7 +213,7 @@ class GameController extends BaseController
                 $conn->exec($sql);
             }
 
-            return View::make('jogo_stb.login');
+            return View::make('jogo_stb.game');
         } catch (PDOException $e) {
             echo $e->getMessage();
         }

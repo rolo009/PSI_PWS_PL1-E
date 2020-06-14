@@ -10,7 +10,11 @@ Layout::includeLayout('menu');
 
 $gameEngine = Data::get('ge');
 
+$idUser = Session::has("id_user");
 
+if ($idUser == false) {
+    View::make('jogo_stb.login');
+}
 
 ?>
 <?php

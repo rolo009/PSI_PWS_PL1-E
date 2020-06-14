@@ -104,9 +104,12 @@ class UserController extends BaseController
             $row = $stmt->rowCount();
             if ($row == 1) {
                 while($lista = $stmt -> fetch(PDO::FETCH_ASSOC)):
-$id = $lista['id_user'];
+                $id = $lista['id_user'];
+                $tipoUser = $lista['tipoUser'];
+
                 Session::set('email', $email);
                 Session::set('id_user', $id);
+                Session::set('tipo_utilizador', $tipoUser);
 
                     return View::make('jogo_stb.instructions');
 

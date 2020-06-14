@@ -3,6 +3,18 @@ use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\Facades\AssetBundler;
 use ArmoredCore\Facades\DebugRenderer;
 use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Session;
+
+$tipoUserB = Session::has("tipo_utilizador");
+
+if ($tipoUserB == false) {
+    $tipoUser = 0;
+}else{
+    $tipoUser = Session::get("tipo_utilizador");
+}
+
+if ($tipoUser == 0){
+
 ?>
 
 <!DOCTYPE html>
@@ -38,9 +50,11 @@ use ArmoredCore\WebObjects\URL;
             <li class="nav-item active">
                 <a class="nav-link" href="<?= URL::toRoute('jogo/top10')?>">Top 10 <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="<?= URL::toRoute('jogo/admin')?>">Administração<span class="sr-only">(current)</span></a>
-            </li>
+            <?php if($tipoUser == 1){ ?>
+                <li class="nav-item active">
+                    <a class="nav-link" href="<?= URL::toRoute('jogo/admin')?>">Administração<span class="sr-only">(current)</span></a>
+                </li>
+            <?php } ?>
         </ul>
         <div class="form-inline my-2 my-md-0">
             <a class="btn btn-light mr-sm-2" href="<?= URL::toRoute('jogo/registar')?>" role="button">Registar</a>
@@ -49,3 +63,7 @@ use ArmoredCore\WebObjects\URL;
         </div>
     </div>
 </nav>
+
+<?php
+}
+?>

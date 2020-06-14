@@ -1,53 +1,88 @@
 <?php
+
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\Facades\AssetBundler;
 use ArmoredCore\Facades\DebugRenderer;
 use ArmoredCore\WebObjects\URL;
-?>
+use ArmoredCore\WebObjects\Session;
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Shut the Box - PWS</title>
+$tipoUserB = Session::has("tipo_utilizador");
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.13.0/css/all.css">
-    <link rel="stylesheet" href="<?= Asset::css('stb_stylesheet.css')?>">
-    <script src="<?= Asset::js('stb_script.js') ?>"></script>
-</head>
+if ($tipoUserB == false) {
+    $tipoUser = 0;
+} else {
+    $tipoUser = Session::get("tipo_utilizador");
+}
+
+if ($tipoUser == 0) {
+
+    ?>
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Shut the Box - PWS</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+              crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+                crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.13.0/css/all.css">
+        <link rel="stylesheet" href="<?= Asset::css('stb_stylesheet.css') ?>">
+        <script src="<?= Asset::js('stb_script.js') ?>"></script>
+    </head>
 
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="<?= URL::toRoute('jogo/index')?>">
-        <img src="<?= Asset::image('stb_logo.png')?>" alt="logo" style="width:40px;">
+    <a class="navbar-brand" href="<?= URL::toRoute('jogo/index') ?>">
+        <img src="<?= Asset::image('stb_logo.png') ?>" alt="logo" style="width:40px;">
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04"
+            aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarsExample04">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="<?= URL::toRoute('jogo/instrucoes')?>">Instruções <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="<?= URL::toRoute('jogo/instrucoes') ?>">Instruções <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="<?= URL::toRoute('jogo/game')?>">Jogar <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="<?= URL::toRoute('jogo/game') ?>">Jogar <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="<?= URL::toRoute('jogo/top10')?>">Top 10 <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="<?= URL::toRoute('jogo/top10') ?>">Top 10 <span
+                            class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="<?= URL::toRoute('jogo/admin')?>">Administração<span class="sr-only">(current)</span></a>
-            </li>
+            <?php if ($tipoUser == 1) { ?>
+                <li class="nav-item active">
+                    <a class="nav-link" href="<?= URL::toRoute('jogo/admin') ?>">Administração<span class="sr-only">(current)</span></a>
+                </li>
+            <?php } ?>
         </ul>
+        <?php
+        $idUser = Session::has("id_user");
+        if ($idUser == False) { ?>
         <div class="form-inline my-2 my-md-0">
-            <a class="btn btn-light mr-sm-2" href="<?= URL::toRoute('user/create')?>" role="button">Registar</a>
-            <a class="btn btn-light my-2 my-sm-0" href="<?= URL::toRoute('jogo/login')?>" role="button">Login</a>
-            <a class="btn btn-light my-2 my-sm-0" href="<?= URL::toRoute('user/logout')?>" role="button">Logout</a>
-            <a class="btn btn-light" href="<?= URL::toRoute('jogo/area_privada')?>" role="button"><i class="fas fa-user-cog"></i></a>
+            <a class="btn btn-light mr-sm-2" href="<?= URL::toRoute('user/create') ?>" role="button">Registar</a>
+            <a class="btn btn-light my-2 my-sm-0" href="<?= URL::toRoute('jogo/login') ?>" role="button">Login</a>
+            <?php
+            }
+
+
+            if ($idUser == True) { ?>
+                <a class="btn btn-light my-2 my-sm-0" href="<?= URL::toRoute('user/logout') ?>" role="button">Logout</a>
+            <?php } ?>
+
+            <a class="btn btn-light" href="<?= URL::toRoute('jogo/area_privada') ?>" role="button"><i
+                        class="fas fa-user-cog"></i></a>
         </div>
     </div>
 </nav>
+    <?php
+}
+?>

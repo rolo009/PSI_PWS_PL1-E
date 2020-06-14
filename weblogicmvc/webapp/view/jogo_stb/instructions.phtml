@@ -1,15 +1,7 @@
 <?php
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
-use ArmoredCore\WebObjects\View;
-use ArmoredCore\WebObjects\Data;
-use ArmoredCore\WebObjects\Session;
 
-$idUser = Session::has("id_user");
-
-if ($idUser == false) {
-    View::make('jogo_stb.login');
-}else{
 
 Layout::includeLayout('menu'); ?>
 
@@ -45,8 +37,6 @@ Layout::includeLayout('menu'); ?>
 
 <div class="rodape">
     <?php Layout::includeLayout('rodape');
-    }
-
     ?>
 </div>
 

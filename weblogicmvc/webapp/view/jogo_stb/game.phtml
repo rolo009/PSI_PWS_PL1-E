@@ -7,7 +7,7 @@ use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\View;
 
-Layout::includeLayout('menu');
+
 
 $gameEngine = Data::get('ge');
 
@@ -17,7 +17,7 @@ if ($idUser == false) {
     View::make('jogo_stb.login');
 }else{
 
-
+Layout::includeLayout('menu');
 ?>
 <?php
 if ($gameEngine->getEstadoJogo() == 5) {

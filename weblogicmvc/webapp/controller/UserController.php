@@ -120,12 +120,15 @@ class UserController extends BaseController
                 while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)):
                     $id = $lista['id_user'];
                     $tipoUser = $lista['tipoUser'];
+                    $estct = $lista['estadoConta'];
 
-                    Session::set('email', $email);
-                    Session::set('id_user', $id);
-                    Session::set('tipo_utilizador', $tipoUser);
+                    if($estct == 0) {
+                        Session::set('email', $email);
+                        Session::set('id_user', $id);
+                        Session::set('tipo_utilizador', $tipoUser);
 
-                    return View::make('jogo_stb.instructions');
+                        return View::make('jogo_stb.instructions');
+                    }
 
 
                 endwhile;

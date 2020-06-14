@@ -5,7 +5,7 @@ use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 
-class UserController extends BaseController implements ResourceControllerInterface
+class UserController extends BaseController
 {
     public function conexao()
     {

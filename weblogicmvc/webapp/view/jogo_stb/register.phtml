@@ -4,9 +4,10 @@ use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
-Layout::includeLayout('menu'); ?>
-<?php $user = Data::get('users');
-\Tracy\Debugger::barDump($user);?>
+Layout::includeLayout('menu');
+$user = Data::get('users') ?>
+?>
+
 
 
 <div class="modal-dialog modal-login">
@@ -16,30 +17,30 @@ Layout::includeLayout('menu'); ?>
         </div>
         <h4 class="modal-title">Registar</h4>
         <div class="modal-body">
-            <form action="<?=Url::toRoute('user/store')?>" method="post">
+            <form action="<?=Url::toRoute('user/store')?>" name="users" method="post">
                 <div class="form-group">
                     <i class="fa fa-user"></i>
-                    <input type="text" class="form-control" name="<?=$user->username?>" placeholder="Username" required="required">
+                    <input type="text" class="form-control" name="username" placeholder="Username" required="required">
                 </div>
                 <div class="form-group">
                     <i class="fa fa-user"></i>
-                    <input type="text" class="form-control" name="<?=$user->nome?>" placeholder="Nome" required="required">
+                    <input type="text" class="form-control" name="nome" placeholder="Nome" required="required">
                 </div>
                 <div class="form-group">
                     <i class="fa fa-user"></i>
-                    <input type="email" class="form-control" name="<?=$user->email?>" placeholder="Email" required="required">
+                    <input type="email" class="form-control" name="email" placeholder="Email" required="required">
                 </div>
                 <div class="form-group">
                     <i class="fa fa-lock"></i>
-                    <input type="password" class="form-control" name="<?=$user->password?>" placeholder="Palavra Passe" required="required">
+                    <input type="password" class="form-control" name="password" placeholder="Palavra Passe" required="required">
                 </div>
                 <div class="form-group">
                     <i class="fa fa-lock"></i>
-                    <input type="password" class="form-control" name="" placeholder="Confirmar Palavra Passe" required="required">
+                    <input type="password" class="form-control" name="confirm-password" placeholder="Confirmar Palavra Passe" required="required">
                 </div>
                 <div class="form-group">
                     <i class="fa fa-user"></i>
-                    <input type="date" class="form-control" name="<?=$user->dtaNascimento?>" required="required">
+                    <input type="date" class="form-control" name="dtaNascimento" required="required">
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary btn-block btn-lg" value="Registar">
@@ -49,6 +50,11 @@ Layout::includeLayout('menu'); ?>
         </div>
     </div>
 </div>
+
+<?php
+
+
+?>
 <div class="rodape">
 <?php Layout::includeLayout('rodape'); ?>
 </div>

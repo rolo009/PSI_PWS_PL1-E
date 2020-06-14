@@ -185,13 +185,6 @@ class GameController extends BaseController
         $gameEngine->updateEstadoJogo();
         Session::set('ge', $gameEngine);
 
-        return View::make('jogo_stb.game', ['ge' => $gameEngine]);
-
-    }
-
-    public function gravaDadosBD()
-    {
-
         $servername = "localhost:3308";
         $username = "root";
         $password = "";
@@ -213,12 +206,15 @@ class GameController extends BaseController
                 $conn->exec($sql);
             }
 
-            return View::make('jogo_stb.game');
+            return View::make('jogo_stb.game', ['ge' => $gameEngine]);
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
 
         $conn = null;
 
+
+
     }
+
 }

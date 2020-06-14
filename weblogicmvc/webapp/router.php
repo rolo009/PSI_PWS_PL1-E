@@ -40,6 +40,7 @@ Router::get('jogo/selecionaP2','GameController/selecionaNumeroP2');
 
 Router::get('jogo/fimP1','GameController/fimJogoP1');
 Router::get('jogo/fimP2','GameController/fimJogoP2');
+Router::get('jogo/gravar','GameController/gravaDadosBD');
 
 Router::resource('user', 'UserController');
 

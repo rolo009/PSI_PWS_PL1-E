@@ -128,9 +128,12 @@ class UserController extends BaseController
                         Session::set('tipo_utilizador', $tipoUser);
 
                         return View::make('jogo_stb.instructions');
+                    }else {
+                        echo '<script type="text/javascript">';
+                        echo 'alert("Estás Banido!!")';
+                        echo '</script>';
+                        return View::make('jogo_stb.login');
                     }
-
-
                 endwhile;
 
             } else {

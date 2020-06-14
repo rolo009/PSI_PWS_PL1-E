@@ -1,9 +1,27 @@
 <?php
+
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
-Layout::includeLayout('menu'); ?>
+Layout::includeLayout('menu');
+
+$servername = "localhost:3308";
+$username = "root";
+$password = "";
+$dbname = "shutthebox";
+
+try {
+$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+$stmt = $conn->prepare("SELECT p.pontos, u.username FROM pontos p JOIN users u ON p.users_id_user = u.id_user 
+ORDER BY pontos ASC LIMIT 10");
+$stmt->execute();
+
+
+?>
 
 <div class="top10-container">
     <table class="table">
@@ -11,29 +29,30 @@ Layout::includeLayout('menu'); ?>
         <tr>
             <th scope="col">Classificação</th>
             <th scope="col">Username</th>
-            <th scope="col">Data</th>
             <th scope="col">Pontuação</th>
         </tr>
         </thead>
         <tbody class="tbody">
+
+        <?php
+        $i = 1;
+        while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+
         <tr>
-            <th scope="row">1</th>
-            <td>pedrorolo</td>
-            <td>06/05/2000</td>
-            <td>19</td>
+            <th scope="row"><?= $i ?></th>
+            <td><?= $lista["username"] ?></td>
+            <td><?= $lista["pontos"] ?></td>
+
         </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>gustavom</td>
-            <td>06/05/2000</td>
-            <td>18</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>mcarapinha</td>
-            <td>06/05/2000</td>
-            <td>17</td>
-        </tr>
+        <?php $i += 1;
+        }\Tracy\Debugger::barDump($lista["userM"], "username" );
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        $conn = null;
+
+        ?>
         </tbody>
     </table>
 </div>

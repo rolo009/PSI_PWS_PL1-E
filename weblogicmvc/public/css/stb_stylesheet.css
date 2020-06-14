@@ -15,6 +15,7 @@ body{
     border-radius: 5px;
     border: none;
 }
+
 .modal-login .modal-header {
     border-bottom: none;
     position: relative;
@@ -208,7 +209,7 @@ body{
 .table{
     text-align: center;
     margin-top: 80px;
-    width: 80%;
+    width: 60%;
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 5%;

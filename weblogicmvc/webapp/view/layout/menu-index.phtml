@@ -13,7 +13,7 @@ if ($tipoUserB == false) {
     $tipoUser = Session::get("tipo_utilizador");
 }
 
-if ($tipoUser == 0){
+if ($tipoUser == 0 || $tipoUser == 1){
 
 ?>
 
@@ -67,8 +67,9 @@ if ($tipoUser == 0){
 
             if ($idUser == True) { ?>
                 <a class="btn btn-light my-2 my-sm-0" href="<?= URL::toRoute('user/logout') ?>" role="button">Logout</a>
-            <?php } ?>
+
             <a class="btn btn-light" href="<?= URL::toRoute('jogo/area_privada')?>" role="button"><i class="fas fa-user-cog"></i></a>
+        <?php } ?>
         </div>
     </div>
 </nav>

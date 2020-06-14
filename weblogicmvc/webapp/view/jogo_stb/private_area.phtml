@@ -11,7 +11,22 @@ if ($idUser == false) {
     View::make('jogo_stb.login');
 }else{
 
-Layout::includeLayout('menu'); ?>
+Layout::includeLayout('menu');
+
+$servername = "localhost:3308";
+$username = "root";
+$password = "";
+$dbname = "shutthebox";
+
+try {
+$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+$stmt = $conn->prepare("SELECT p.pontos, u.username FROM pontos p JOIN users u ON p.users_id_user = u.id_user 
+ORDER BY p.pontos ASC LIMIT 5");
+$stmt->execute();
+?>
 <div class="alterar-registo">
     <a class="btn btn-dark" href="<?= URL::toRoute('user/editar_reg')?>" role="button">Editar Registo</a>
 </div>
@@ -19,27 +34,32 @@ Layout::includeLayout('menu'); ?>
     <table class="table">
         <thead class="thead">
         <tr>
+            <th scope="col"> TOP 10</th>
+            <th scope="col"> Nº Jogador: <?= Session::get("id_user"); ?></th>
+        </tr>
+        <tr>
             <th scope="col">Jogo</th>
-            <th scope="col">Data</th>
             <th scope="col">Pontuação</th>
         </tr>
         </thead>
         <tbody class="tbody">
-        <tr>
-            <th scope="row">1</th>
-            <td>06/05/2000</td>
-            <td>19</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>06/05/2000</td>
-            <td>18</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>06/05/2000</td>
-            <td>17</td>
-        </tr>
+        <?php
+        $i = 1;
+        while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+
+            <tr>
+                <th scope="row"><?= $i ?></th>
+                <td><?= $lista["pontos"] ?></td>
+            </tr>
+            <?php $i += 1;
+        }\Tracy\Debugger::barDump($lista["userM"], "username" );
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        $conn = null;
+
+        ?>
         </tbody>
     </table>
 </div>

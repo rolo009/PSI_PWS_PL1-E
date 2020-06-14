@@ -21,7 +21,7 @@ class UserController extends BaseController
 
         } catch (PDOException $e) {
 
-        }
+        }mysqli_num_rows();
     }
 
     public function index()
@@ -70,15 +70,7 @@ class UserController extends BaseController
         return View::make('jogo_stb.register');
     }
 
-    public function login()
-    {
 
-    }
-
-    public function editar_reg()
-    {
-
-    }
 
 
 

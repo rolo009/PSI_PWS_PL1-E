@@ -65,12 +65,18 @@ class UserController extends BaseController
 
                     $conn->exec($sql);
                 } else {
-                    echo "Utilizador já registado!";
+                    echo '<script type="text/javascript">';
+                    echo 'alert("Dados inválidos, tente novamente!")';
+                    echo '</script>';
+
                     return View::make('jogo_stb.register');
                 }
 
             }
-            echo "Utilizador registado com sucesso!!";
+            echo '<script type="text/javascript">';
+            echo 'alert("O registo foi efetuado com sucesso!")';
+            echo '</script>';
+
             return View::make('jogo_stb.login');
         } catch (PDOException $e) {
             echo $e->getMessage();
@@ -208,6 +214,9 @@ class UserController extends BaseController
                     $stmt->execute();
                 }
             }
+            echo '<script type="text/javascript">';
+            echo 'alert("O registo foi editado com sucesso!")';
+            echo '</script>';
 
             return View::make('jogo_stb.private_area');
 

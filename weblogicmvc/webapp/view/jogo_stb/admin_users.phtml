@@ -11,7 +11,22 @@ if ($idUser == false) {
     View::make('jogo_stb.login');
 }else{
 
-Layout::includeLayout('menu'); ?>
+Layout::includeLayout('menu');
+
+$servername = "localhost:3308";
+$username = "root";
+$password = "";
+$dbname = "shutthebox";
+
+try {
+$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+$stmt = $conn->prepare("SELECT * FROM  users");
+$stmt->execute();
+?>
+
 <div class="search-player justify-content-center">
     <form class="form-inline" action="/action_page.php">
         <input class="form-control mr-sm-2" type="text" placeholder="Search">
@@ -23,33 +38,32 @@ Layout::includeLayout('menu'); ?>
     <table class="table">
         <thead class="thead">
         <tr>
+            <th scope="col">ID User</th>
             <th scope="col">Username</th>
-            <th scope="col">Data Registo</th>
             <th scope="col">Banir</th>
         </tr>
         </thead>
         <tbody class="tbody">
+        <?php
+        $i = 1;
+        while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+
         <tr>
-            <th scope="row">aaaa</th>
-            <td>06/05/2000</td>
+            <th scope="row"><?= $lista["id_user"] ?></th>
+            <td><?= $lista["username"] ?></td>
             <td>
-                <a class="btn btn-dark my-2 my-sm-0" href="" role="button">Banir</a>
+                <a class="btn btn-dark my-2 my-sm-0" href="<?= URL::toRoute('user/banir', $lista["id_user"]) ?>" role="button">Banir</a>
             </td>
         </tr>
-        <tr>
-            <th scope="row">bbbb</th>
-            <td>06/05/2000</td>
-            <td>
-                <a class="btn btn-dark my-2 my-sm-0" href="" role="button">Banir</a>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row">cccc</th>
-            <td>06/05/2000</td>
-            <td>
-                <a class="btn btn-dark my-2 my-sm-0" href="" role="button">Banir</a>
-            </td>
-        </tr>
+            <?php $i += 1;
+        }\Tracy\Debugger::barDump($lista["userM"], "username" );
+
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        $conn = null;
+
+        ?>
         </tbody>
     </table>
 </div>

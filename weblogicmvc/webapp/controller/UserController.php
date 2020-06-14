@@ -78,7 +78,7 @@ class UserController extends BaseController
 
                 return View::make('jogo_stb.login');
 
-            }else{
+            } else {
                 echo '<script type="text/javascript">';
                 echo 'alert("As passwords não são iguais!")';
                 echo '</script>';
@@ -117,13 +117,13 @@ class UserController extends BaseController
 
             $row = $stmt->rowCount();
             if ($row == 1) {
-                while($lista = $stmt -> fetch(PDO::FETCH_ASSOC)):
-                $id = $lista['id_user'];
-                $tipoUser = $lista['tipoUser'];
+                while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)):
+                    $id = $lista['id_user'];
+                    $tipoUser = $lista['tipoUser'];
 
-                Session::set('email', $email);
-                Session::set('id_user', $id);
-                Session::set('tipo_utilizador', $tipoUser);
+                    Session::set('email', $email);
+                    Session::set('id_user', $id);
+                    Session::set('tipo_utilizador', $tipoUser);
 
                     return View::make('jogo_stb.instructions');
 
@@ -159,20 +159,20 @@ class UserController extends BaseController
 
             $stmt = $conn->prepare("SELECT * FROM users WHERE id_user='$idUser'");
             $stmt->execute();
-            while ($lista = $stmt -> fetch(PDO::FETCH_ASSOC)) {
+            while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
                 session::set('nome', $lista['nome']);
                 session::set('email', $lista['email']);
                 session::set('dtaNascimento', $lista['dtaNascimento']);
 
             }
-        \Tracy\Debugger::barDump(session::get('nome'), 'nome');
-        return View::make('jogo_stb.update_register');
+            \Tracy\Debugger::barDump(session::get('nome'), 'nome');
+            return View::make('jogo_stb.update_register');
 
-                } catch (PDOException $e) {
-                    echo "Error: " . $e->getMessage();
-                }
-                $conn = null;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        $conn = null;
 
     }
 
@@ -196,7 +196,7 @@ class UserController extends BaseController
             $confirmPassword = Post::get("confirm-password");
             $dtaNascimento = Post::get("dtaNascimento");
 
-            if($password == ""){
+            if ($password == "") {
                 $sql = "UPDATE users SET nome = '$nome', email = '$email', dtaNascimento = '$dtaNascimento' WHERE id_user ='$idUser'";
 
                 // Prepare statement
@@ -204,11 +204,9 @@ class UserController extends BaseController
 
                 // execute the query
                 $stmt->execute();
-            }
+            } else if ($password != "") {
 
-            else if ($password != ""){
-
-                if($password == $confirmPassword){
+                if ($password == $confirmPassword) {
                     $sql = "UPDATE users SET nome = '$nome', email = '$email', password = '$password',
             dtaNascimento = '$dtaNascimento' WHERE id_user ='$idUser'";
 
@@ -221,7 +219,7 @@ class UserController extends BaseController
                     echo '<script type="text/javascript">';
                     echo 'alert("O registo foi editado com sucesso!")';
                     echo '</script>';
-                }else{
+                } else {
                     echo '<script type="text/javascript">';
                     echo 'alert("As passwords não são iguais!")';
                     echo '</script>';
@@ -235,6 +233,34 @@ class UserController extends BaseController
             echo $sql . "<br>" . $e->getMessage();
         }
     }
+
+    public function banir($id_user)
+    {
+        $servername = "localhost:3308";
+        $username = "root";
+        $password = "";
+        $dbname = "shutthebox";
+
+        try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $sql = "UPDATE users SET estadoConta = 1 WHERE id_user = $id_user";
+
+            // Prepare statement
+            $stmt = $conn->prepare($sql);
+
+            // execute the query
+            $stmt->execute();
+
+            return View::make('jogo_stb.admin_users');
+
+        } catch (PDOException $e) {
+            echo $sql . "<br>" . $e->getMessage();
+        }
+    }
+
     public function logout()
     {
         Session::destroy();

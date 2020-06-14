@@ -9,7 +9,8 @@ $idUser = Session::has("id_user");
 
 if ($idUser == false) {
     View::make('jogo_stb.login');
-}
+}else{
+
 Layout::includeLayout('menu'); ?>
 
 <div class="btn-retroceder ">
@@ -43,7 +44,10 @@ Layout::includeLayout('menu'); ?>
 </div>
 
 <div class="rodape">
-    <?php Layout::includeLayout('rodape'); ?>
+    <?php Layout::includeLayout('rodape');
+    }
+
+    ?>
 </div>
 
 

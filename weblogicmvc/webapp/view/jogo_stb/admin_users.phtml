@@ -8,7 +8,7 @@ $idUser = Session::has("id_user");
 
 if ($idUser == false) {
     View::make('jogo_stb.login');
-}
+}else{
 
 Layout::includeLayout('menu'); ?>
 <div class="search-player justify-content-center">
@@ -54,7 +54,11 @@ Layout::includeLayout('menu'); ?>
 </div>
 
 <div class="rodape">
-    <?php Layout::includeLayout('rodape'); ?>
+    <?php
+
+    Layout::includeLayout('rodape');
+    }
+    ?>
 </div>
 </body>
 </html>

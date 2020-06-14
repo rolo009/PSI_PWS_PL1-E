@@ -3,6 +3,12 @@ use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
+$idUser = Session::has("id_user");
+
+if ($idUser == false) {
+    View::make('jogo_stb.login');
+}else{
+
 Layout::includeLayout('menu'); ?>
 <div class="alterar-registo">
     <a class="btn btn-dark" href="<?= URL::toRoute('user/editar_reg')?>" role="button">Editar Registo</a>
@@ -37,5 +43,6 @@ Layout::includeLayout('menu'); ?>
 </div>
 
 <div class="rodape">
-    <?php Layout::includeLayout('rodape'); ?>
+    <?php Layout::includeLayout('rodape');
+    }?>
 </div>

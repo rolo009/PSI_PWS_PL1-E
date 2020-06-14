@@ -14,7 +14,8 @@ $idUser = Session::has("id_user");
 
 if ($idUser == false) {
     View::make('jogo_stb.login');
-}
+}else{
+
 
 ?>
 <?php
@@ -198,6 +199,10 @@ if ($gameEngine->getEstadoJogo() == 5) {
 
         </div>
         <div class="rodape">
-            <?php Layout::includeLayout('rodape'); ?>
+            <?php
+
+            Layout::includeLayout('rodape');
+            }
+            ?>
         </div>
 

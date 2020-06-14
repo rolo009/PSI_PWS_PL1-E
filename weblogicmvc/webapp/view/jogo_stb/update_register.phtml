@@ -2,6 +2,7 @@
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Session;
 
 $idUser = Session::has("id_user");
 
@@ -21,23 +22,23 @@ Layout::includeLayout('menu'); ?>
             <form action="<?=Url::toRoute('user/proc_editar_reg')?>" method="post">
                 <div class="form-group">
                     <i class="fa fa-user"></i>
-                    <input type="text" class="form-control" name="name" placeholder="Nome" required="required">
+                    <input type="text" class="form-control" name="nome" placeholder="Nome" value="<?= Session::get("nome") ?>" required="required">
                 </div>
                 <div class="form-group">
                     <i class="fa fa-user"></i>
-                    <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+                    <input type="email" class="form-control" name="email" placeholder="Email" value="<?= Session::get("email") ?>" required="required">
                 </div>
                 <div class="form-group">
                     <i class="fa fa-lock"></i>
-                    <input type="password" class="form-control" name="password" placeholder="Palavra Passe" required="required">
+                    <input type="password" class="form-control" name="password" placeholder="Palavra Passe">
                 </div>
                 <div class="form-group">
                     <i class="fa fa-lock"></i>
-                    <input type="password" class="form-control" name="password-confirm" placeholder="Confirmar Palavra Passe" required="required">
+                    <input type="password" class="form-control" name="confirm-password" placeholder="Confirmar Palavra Passe">
                 </div>
                 <div class="form-group">
                     <i class="fa fa-user"></i>
-                    <input type="date" class="form-control" name="data" required="required">
+                    <input type="date" class="form-control" name="dtaNascimento" value="<?= Session::get("dtaNascimento") ?>" required="required">
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary btn-block btn-lg" value="Registar">

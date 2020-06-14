@@ -135,7 +135,7 @@ class UserController extends BaseController
 
     public function editar_reg()
     {
-        /*$servername = "localhost:3308";
+        $servername = "localhost:3308";
         $username = "root";
         $password = "";
         $dbname = "shutthebox";
@@ -144,27 +144,25 @@ class UserController extends BaseController
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $username = Session::get("username");
+            $idUser = Session::get("id_user");
 
-            $stmt = $conn->prepare("SELECT * FROM users WHERE username='$username'");
+            $stmt = $conn->prepare("SELECT * FROM users WHERE id_user='$idUser'");
             $stmt->execute();
-            while ($row = $stmt->fetch()) {
+            while ($lista = $stmt -> fetch(PDO::FETCH_ASSOC)) {
 
-                session::set($row['username'], 'username');
-                session::set($row['nome'], 'nome');
-                session::set($row['email'], 'email');
-                session::set($row['password'], 'password');
-                session::set($row['dtaNascimento'], 'dtaNascimento');
+                session::set('nome', $lista['nome']);
+                session::set('email', $lista['email']);
+                session::set('dtaNascimento', $lista['dtaNascimento']);
 
-            }*/
+            }
         \Tracy\Debugger::barDump(session::get('nome'), 'nome');
         return View::make('jogo_stb.update_register');
-        /*
+
                 } catch (PDOException $e) {
                     echo "Error: " . $e->getMessage();
                 }
                 $conn = null;
-        */
+
     }
 
 
@@ -179,22 +177,40 @@ class UserController extends BaseController
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             // set the PDO error mode to exception
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $username = Post::get("username");
+            //\Tracy\Debugger::barDump($nome, nopme);
+            $idUser = Session::get("id_user");
             $nome = Post::get("nome");
             $email = Post::get("email");
             $password = Post::get("password");
             $confirmPassword = Post::get("confirm-password");
             $dtaNascimento = Post::get("dtaNascimento");
 
-            $sql = "UPDATE users SET username='$username', nome = '$nome', email = '$email', password = '$password',
-            dtaNascimento = '$dtaNascimento' WHERE id=2";
+            if($password == ""){
+                $sql = "UPDATE users SET nome = '$nome', email = '$email', dtaNascimento = '$dtaNascimento' WHERE id_user ='$idUser'";
 
-            // Prepare statement
-            $stmt = $conn->prepare($sql);
+                // Prepare statement
+                $stmt = $conn->prepare($sql);
 
-            // execute the query
-            $stmt->execute();
+                // execute the query
+                $stmt->execute();
+            }
+
+            else if ($password != ""){
+
+                if($password == $confirmPassword){
+                    $sql = "UPDATE users SET nome = '$nome', email = '$email', password = '$password',
+            dtaNascimento = '$dtaNascimento' WHERE id_user ='$idUser'";
+
+                    // Prepare statement
+                    $stmt = $conn->prepare($sql);
+
+                    // execute the query
+                    $stmt->execute();
+                }
+            }
+
+            return View::make('jogo_stb.private_area');
+
         } catch (PDOException $e) {
             echo $sql . "<br>" . $e->getMessage();
         }

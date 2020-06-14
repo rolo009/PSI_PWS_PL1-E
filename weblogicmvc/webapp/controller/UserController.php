@@ -7,25 +7,64 @@ use ArmoredCore\Interfaces\ResourceControllerInterface;
 
 class UserController extends BaseController implements ResourceControllerInterface
 {
+    public function conexao()
+    {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "shutthebox";
+
+        try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            // set the PDO error mode to exception
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        } catch (PDOException $e) {
+
+        }
+    }
+
     public function index()
     {
-        $user = User::all();
-        View::make('jogo_stb.index', ['user' => $user]);
+        /* $user = User::all();
+         View::make('jogo_stb.index', ['user' => $user]);*/
     }
 
     public function store()
     {
-        // create new resource (activerecord/model) instance
-        // your form name fields must match the ones of the table fields
-        $user = new User(Post::getAll());
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "shutthebox";
 
-        if($user->is_valid()){
-            $user->save();
-            Redirect::toRoute('user/index');
-        } else {
-            // return form with data and errors
-            Redirect::flashToRoute('user/create', ['user' => $user]);
+        try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            // set the PDO error mode to exception
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $username = Post::get("username");
+            $nome = Post::get("nome");
+            $email = Post::get("email");
+            $password = Post::get("password");
+            $confirmPassword = Post::get("confirm-password");
+            $dtaNascimento = Post::get("dtaNascimento");
+
+            if($password == $confirmPassword){
+                $sql = "INSERT INTO users (username, nome, email, pasword, dtaNascimento)
+            VALUES ($username, $nome, $email, $password, $confirmPassword, $dtaNascimento)";
+
+                $conn -> exec($sql);
+            }
+
+            echo "New record created successfully";
+        } catch(PDOException $e) {
+            echo "<br>" . $e->getMessage();
         }
+
+        $conn = null;
+
+
+
     }
 
     public function create()

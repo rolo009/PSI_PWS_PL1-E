@@ -92,6 +92,7 @@ class UserController extends BaseController
                 session::set($username, 'username');
 
 
+
                 return View::make('jogo_stb.instructions');
             }
 
@@ -105,6 +106,7 @@ class UserController extends BaseController
             echo "Error: " . $e->getMessage();
         }
         $conn = null;
+
     }
 
     public function editar_reg()

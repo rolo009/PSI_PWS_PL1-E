@@ -18,7 +18,7 @@ use Windwalker\Cache\Cache;
 use Windwalker\Cache\Serializer\StringSerializer;
 use Windwalker\Cache\Storage\FileStorage;
 
-$smartcache = new Cache(new FileStorage(WL_CACHE_BASE_DIR . '\\..\\cache\\projeto_pws\\output'), new StringSerializer());
+$smartcache = new Cache(new FileStorage(WL_CACHE_BASE_DIR . '\\..\\cache\\weblogicmvc\\output'), new StringSerializer());
 
 
 

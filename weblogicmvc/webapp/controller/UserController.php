@@ -7,25 +7,62 @@ use ArmoredCore\Interfaces\ResourceControllerInterface;
 
 class UserController extends BaseController implements ResourceControllerInterface
 {
+    public function conexao()
+    {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "shutthebox";
+
+        try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            // set the PDO error mode to exception
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        } catch (PDOException $e) {
+
+        }
+    }
+
     public function index()
     {
-        $user = User::all();
-        View::make('jogo_stb.index', ['user' => $user]);
+       /* $user = User::all();
+        View::make('jogo_stb.index', ['user' => $user]);*/
     }
 
     public function store()
     {
-        // create new resource (activerecord/model) instance
-        // your form name fields must match the ones of the table fields
-        $user = new User(Post::getAll());
+        $servername = "localhost:3308";
+        $username = "root";
+        $password = "";
+        $dbname = "shutthebox";
 
-        if($user->is_valid()){
-            $user->save();
-            Redirect::toRoute('user/index');
-        } else {
-            // return form with data and errors
-            Redirect::flashToRoute('user/create', ['user' => $user]);
+        try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            // set the PDO error mode to exception
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $username = Post::get("username");
+            $nome = Post::get("nome");
+            $email = Post::get("email");
+            $password = Post::get("password");
+            $confirmPassword = Post::get("confirm-password");
+            $dtaNascimento = Post::get("dtaNascimento");
+
+            if($password == $confirmPassword){
+                $sql = "INSERT INTO users (id_user, username, nome, email, password, dtaNascimento) 
+                VALUES (NULL, '$username', '$nome', '$email', '$password', '$dtaNascimento')";
+
+                $conn -> exec($sql);
+            }
+
+            return View::make('jogo_stb.login');
+        } catch(PDOException $e) {
+            echo $e->getMessage();
         }
+
+        $conn = null;
+
     }
 
     public function create()
@@ -33,50 +70,16 @@ class UserController extends BaseController implements ResourceControllerInterfa
         return View::make('jogo_stb.register');
     }
 
-    public function show($id)
+    public function login()
     {
-        $user = User::find($id);
 
-        \Tracy\Debugger::barDump($user);
-
-        if (is_null($user)) {
-            // redirect to standard error page
-        } else {
-            View::make('user.show', ['user' => $user]);
-        }
     }
 
-    public function edit($id)
+    public function editar_reg()
     {
-        /*$book = Book::find($id);
 
-        if (is_null($book)) {
-            // redirect to standard error page
-        } else {
-            View::make('book.edit', ['book' => $book]);
-        }*/
-    }
-
-    public function update($id)
-    {
-        /*$book = Book::find($id);
-        $book->update_attributes(Post::getAll());
-
-        if($book->is_valid()){
-            $book->save();
-            Redirect::toRoute('book/index');
-        } else {
-            // return form with data and errors
-            Redirect::flashToRoute('book/edit', ['book' => $book], $id);
-        }*/
     }
 
 
-    public function destroy($id)
-    {
-        $user = User::find($id);
-        $user->delete();
-        Redirect::toRoute('jogo_stb/index');
-    }
 
 }

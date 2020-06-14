@@ -82,33 +82,22 @@ class UserController extends BaseController
         try {
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 
-
             $email = Post::get("email");
             $password = Post::get("password");
 
             $stmt = $conn->prepare("SELECT * FROM users WHERE email='$email' and password='$password'");
             $stmt->execute();
-            while ($row = $stmt->fetch()) {
-                \Tracy\Debugger::barDump($row['estadoConta']);
-                echo "10";
-                if ($row['estadoConta'] == 0) {
-                    $result = $stmt->fetch();
-                    if ($stmt->execute() == 1) {
 
-                        session::set($row['username'], 'username');
+            $row = $stmt->rowCount();
+            if ($row == 1) {
+                        session::set($email, 'email');
                         session::set($row['id_user'], 'id_user');
 
-
-                        return View::make('jogo_stb.instructions');
-                    } else {
-                        echo "11";
-                        return View::make('jogo_stb.login');
-                    }
-                } else {
-                    echo "Foste banido!";
-                }
+                        return View::make('jogo_stb.instructions', ['email' => $email]);
             }
-
+            else{
+                return View::make('jogo_stb.login');
+            }
 
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();

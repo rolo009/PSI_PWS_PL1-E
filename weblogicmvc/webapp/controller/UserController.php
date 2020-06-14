@@ -4,6 +4,7 @@ use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
+use ArmoredCore\WebObjects\Session;
 
 class UserController extends BaseController
 {
@@ -21,7 +22,7 @@ class UserController extends BaseController
 
         } catch (PDOException $e) {
 
-        }mysqli_num_rows();
+        }
     }
 
     public function index()
@@ -70,7 +71,46 @@ class UserController extends BaseController
         return View::make('jogo_stb.register');
     }
 
+    public function login()
+    {
+        $servername = "localhost:3308";
+        $username = "root";
+        $password = "";
+        $dbname = "shutthebox";
 
+        try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $email = Post::get("email");
+            $password = Post::get("password");
+
+            $stmt = $conn->prepare("SELECT * FROM users WHERE email='$email' and password='$password'");
+            $stmt->execute();
+
+            if ($stmt->execute()  == 1){
+                session::set($username, 'username');
+
+
+                return View::make('jogo_stb.instructions');
+            }
+
+            // set the resulting array to associative
+            /*$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+                echo $v;
+            }*/
+        }
+        catch(PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        $conn = null;
+    }
+
+    public function editar_reg()
+    {
+
+    }
 
 
 

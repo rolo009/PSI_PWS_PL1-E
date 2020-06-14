@@ -12,7 +12,7 @@ Layout::includeLayout('menu'); ?>
         </div>
         <h4 class="modal-title">Editar Registo</h4>
         <div class="modal-body">
-            <form action="" method="post">
+            <form action="<?=Url::toRoute('user/proc_editar_reg')?>" method="post">
                 <div class="form-group">
                     <i class="fa fa-user"></i>
                     <input type="text" class="form-control" name="name" placeholder="Nome" required="required">

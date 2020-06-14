@@ -5,13 +5,11 @@ use ArmoredCore\WebObjects\View;
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Session;
 
-$email = Data::get('email');
-\Tracy\Debugger::barDump($email, "estado");
-if ($email != NULL){
+$idUser = Session::has("id_user");
 
-} else{
+if ($idUser == false) {
     View::make('jogo_stb.login');
-};
+}
 Layout::includeLayout('menu'); ?>
 
 <div class="btn-retroceder ">

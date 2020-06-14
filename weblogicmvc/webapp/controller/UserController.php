@@ -103,10 +103,16 @@ class UserController extends BaseController
 
             $row = $stmt->rowCount();
             if ($row == 1) {
-                session::set($email, 'email');
-                session::set($row['id_user'], 'id_user');
+                while($lista = $stmt -> fetch(PDO::FETCH_ASSOC)):
+$id = $lista['id_user'];
+                Session::set('email', $email);
+                Session::set('id_user', $id);
 
-                return View::make('jogo_stb.instructions', ['email' => $email]);
+                    return View::make('jogo_stb.instructions');
+
+
+                endwhile;
+
             } else {
                 return View::make('jogo_stb.login');
             }
@@ -181,7 +187,11 @@ class UserController extends BaseController
         } catch (PDOException $e) {
             echo $sql . "<br>" . $e->getMessage();
         }
-
-
     }
+    public function logout()
+    {
+        Session::destroy();
+        Redirect::toRoute('jogo/index');
+    }
+
 }

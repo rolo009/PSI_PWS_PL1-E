@@ -2,6 +2,13 @@
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Session;
+
+$idUser = Session::has("id_user");
+
+if ($idUser == false) {
+    View::make('jogo_stb.login');
+}
 
 Layout::includeLayout('menu'); ?>
 <div class="search-player justify-content-center">

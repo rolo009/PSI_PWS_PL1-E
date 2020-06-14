@@ -111,12 +111,20 @@ class UserController extends BaseController
                 Session::set('id_user', $id);
                 Session::set('tipo_utilizador', $tipoUser);
 
+                echo '<script type="text/javascript">';
+                echo 'alert("O login foi efetuado com sucesso!")';
+                echo '</script>';
+
                     return View::make('jogo_stb.instructions');
 
 
                 endwhile;
 
             } else {
+                echo '<script type="text/javascript">';
+                echo 'alert("Dados inválidos, tente novamente!")';
+                echo '</script>';
+
                 return View::make('jogo_stb.login');
             }
 

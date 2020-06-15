@@ -65,6 +65,7 @@ if ($SearchId == True) {
             <th scope="col">ID User</th>
             <th scope="col">Username</th>
             <th scope="col">Banir</th>
+            <th scope="col">Admin</th>
         </tr>
         </thead>
         <tbody class="tbody">
@@ -104,23 +105,41 @@ if ($SearchId == True) {
                     <td><?= $lista["username"] ?></td>
                     <?php
                     $estado_conta = $lista["estadoConta"];
+                    $tipo_user = $lista["tipoUser"]; ?>
 
-                    if ($estado_conta == 0) {
-
-                        ?>
-                        <td>
-                            <a class="btn btn-dark my-2 my-sm-0"
-                               href="<?= URL::toRoute('user/banir', $lista["id_user"]) ?>" role="button">Banir</a>
-                        </td>
-                    <?php } else if ($estado_conta == 1) { ?>
-                        <td>
-                            <a class="btn btn-light my-2 my-sm-0"
-                               href="<?= URL::toRoute('user/desbanir', $lista["id_user"]) ?>" role="button">Tirar
-                                Ban</a>
-                        </td>
                         <?php
-                    }
-                    ?>
+                        if ($estado_conta == 0) {
+                        ?>
+                    <td>
+                        <a class="btn btn-dark my-2 my-sm-0"
+                           href="<?= URL::toRoute('user/banir', $lista["id_user"]) ?>" role="button">Banir</a>
+                    </td>
+                        <?php }
+                        if ($estado_conta == 1) {
+                        ?>
+                    <td>
+                        <a class="btn btn-light my-2 my-sm-0"
+                           href="<?= URL::toRoute('user/desbanir', $lista["id_user"]) ?>" role="button">Tirar
+                            Ban</a>
+
+                    </td>
+                <?php }
+                        if ($tipo_user == 0) { ?>
+                    <td>
+                        <a class="btn btn-warning my-2 my-sm-0"
+                           href="<?= URL::toRoute('user/tornarAdmin', $lista["id_user"]) ?>" role="button">Tornar
+                            Admin</a>
+                    </td>
+                        <?php } if ($tipo_user == 1) { ?>
+                    <td>
+                        <a class="btn btn-outline-warning tadmin my-2 my-sm-0"
+                           href="<?= URL::toRoute('user/removerAdmin', $lista["id_user"]) ?>" role="button">Tirar
+                            Admin</a>
+                    </td>
+                    <?php
+                }
+                ?>
+
                 </tr>
 
                 <?php
@@ -142,8 +161,8 @@ if ($SearchId == True) {
 
     Layout::includeLayout('rodape');
     }
-    }else{
-    View::make('jogo_stb.index');
+    } else {
+        View::make('jogo_stb.index');
     }
     }
     ?>

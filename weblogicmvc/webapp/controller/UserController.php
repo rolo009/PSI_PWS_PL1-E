@@ -283,6 +283,60 @@ class UserController extends BaseController
         }
     }
 
+    public function tornarAdmin($id_user)
+    {
+        $servername = "localhost:3308";
+        $username = "root";
+        $password = "";
+        $dbname = "shutthebox";
+
+        try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $sql = "UPDATE users SET tipoUser = 1 WHERE id_user = $id_user";
+
+            // Prepare statement
+            $stmt = $conn->prepare($sql);
+
+            // execute the query
+            $stmt->execute();
+
+            return View::make('jogo_stb.admin_users');
+
+        } catch (PDOException $e) {
+            echo $sql . "<br>" . $e->getMessage();
+        }
+    }
+
+    public function removerAdmin($id_user)
+    {
+        $servername = "localhost:3308";
+        $username = "root";
+        $password = "";
+        $dbname = "shutthebox";
+
+        try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $sql = "UPDATE users SET tipoUser = 0 WHERE id_user = $id_user";
+
+            // Prepare statement
+            $stmt = $conn->prepare($sql);
+
+            // execute the query
+            $stmt->execute();
+
+            return View::make('jogo_stb.admin_users');
+
+        } catch (PDOException $e) {
+            echo $sql . "<br>" . $e->getMessage();
+        }
+    }
+
     public function logout()
     {
         Session::destroy();

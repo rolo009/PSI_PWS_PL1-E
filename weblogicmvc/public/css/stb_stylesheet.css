@@ -256,3 +256,8 @@ background-color: black;
     color: white;
     background-color: black;
 }
+
+.btn-outline-warning{
+    background-color: white;
+    color: black;
+}

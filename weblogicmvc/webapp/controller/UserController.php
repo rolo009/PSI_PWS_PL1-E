@@ -9,28 +9,6 @@ use ArmoredCore\WebObjects\Session;
 
 class UserController extends BaseController
 {
-    public function conexao()
-    {
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "shutthebox";
-
-        try {
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-            // set the PDO error mode to exception
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        } catch (PDOException $e) {
-
-        }
-    }
-
-    public function index()
-    {
-        /* $user = User::all();
-         View::make('jogo_stb.index', ['user' => $user]);*/
-    }
 
     public function store()
     {
@@ -50,43 +28,53 @@ class UserController extends BaseController
             $password = Post::get("password");
             $confirmPassword = Post::get("confirm-password");
             $dtaNascimento = Post::get("dtaNascimento");
+            if (strlen($password) > 5) {
+                if ($password == $confirmPassword) {
 
-            if ($password == $confirmPassword) {
 
+                    $check_duplicates = $conn->prepare("SELECT * FROM users WHERE email='$email' or username='$username'");
+                    $check_duplicates->execute();
 
-                $check_duplicates = $conn->prepare("SELECT * FROM users WHERE email='$email' or username='$username'");
-                $check_duplicates->execute();
+                    $row = $check_duplicates->rowCount();
 
-                $row = $check_duplicates->rowCount();
-
-                if ($row == 0) {
-                    $sql = "INSERT INTO users (id_user, username, nome, email, password, dtaNascimento, tipoUser, estadoConta) 
+                    if ($row == 0) {
+                        $sql = "INSERT INTO users (id_user, username, nome, email, password, dtaNascimento, tipoUser, estadoConta) 
                 VALUES (NULL, '$username', '$nome', '$email', '$password', '$dtaNascimento', DEFAULT, DEFAULT)";
 
-                    $conn->exec($sql);
+                        $conn->exec($sql);
+
+                    } else {
+                        echo '<script type="text/javascript">';
+                        echo 'alert("Dados inválidos, tente novamente!")';
+                        echo '</script>';
+
+                        return View::make('jogo_stb.register');
+                    }
+
+                    echo '<script type="text/javascript">';
+                    echo 'alert("O registo foi efetuado com sucesso!")';
+                    echo '</script>';
+
+                    return View::make('jogo_stb.login');
+
                 } else {
                     echo '<script type="text/javascript">';
-                    echo 'alert("Dados inválidos, tente novamente!")';
+                    echo 'alert("As passwords não são iguais!")';
                     echo '</script>';
 
                     return View::make('jogo_stb.register');
                 }
 
+            }
+            else{
                 echo '<script type="text/javascript">';
-                echo 'alert("O registo foi efetuado com sucesso!")';
-                echo '</script>';
-
-                return View::make('jogo_stb.login');
-
-            } else {
-                echo '<script type="text/javascript">';
-                echo 'alert("As passwords não são iguais!")';
+                echo 'alert("A password deve ter mais de 5 caracteres")';
                 echo '</script>';
 
                 return View::make('jogo_stb.register');
             }
-
-        } catch (PDOException $e) {
+        } catch
+        (PDOException $e) {
             echo $e->getMessage();
         }
 
@@ -120,15 +108,16 @@ class UserController extends BaseController
                 while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)):
                     $id = $lista['id_user'];
                     $tipoUser = $lista['tipoUser'];
-                    $estct = $lista['estadoConta'];
+                    $estado_conta = $lista['estadoConta'];
 
-                    if($estct == 0) {
+                    if ($estado_conta == 0) {
                         Session::set('email', $email);
                         Session::set('id_user', $id);
                         Session::set('tipo_utilizador', $tipoUser);
+                        Session::set('tipoUser', $tipoUser);
 
                         return View::make('jogo_stb.instructions');
-                    }else {
+                    } else {
                         echo '<script type="text/javascript">';
                         echo 'alert("Estás Banido!!")';
                         echo '</script>';
@@ -267,10 +256,45 @@ class UserController extends BaseController
         }
     }
 
+    public function desbanir($id_user)
+    {
+        $servername = "localhost:3308";
+        $username = "root";
+        $password = "";
+        $dbname = "shutthebox";
+
+        try {
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $sql = "UPDATE users SET estadoConta = 0 WHERE id_user = $id_user";
+
+            // Prepare statement
+            $stmt = $conn->prepare($sql);
+
+            // execute the query
+            $stmt->execute();
+
+            return View::make('jogo_stb.admin_users');
+
+        } catch (PDOException $e) {
+            echo $sql . "<br>" . $e->getMessage();
+        }
+    }
+
     public function logout()
     {
         Session::destroy();
         Redirect::toRoute('jogo/index');
+    }
+
+    public function search()
+    {
+        $search_id = Post::get('search');
+        Session::set("searchId", $search_id);
+
+        return View::make('jogo_stb.admin_users');
     }
 
 }

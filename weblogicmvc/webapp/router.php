@@ -31,7 +31,6 @@ Router::get('jogo/area_privada','GameController/private_area');
 Router::get('jogo/editar_registo','GameController/update_register');
 Router::get('jogo/top10','GameController/topTen');
 Router::get('jogo/admin','GameController/admin');
-Router::get('jogo/admin','GameController/admin');
 
 
 Router::get('jogo/rodarDados','GameController/rolarDados');

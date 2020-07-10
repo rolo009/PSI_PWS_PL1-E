@@ -7,333 +7,155 @@ use ArmoredCore\WebObjects\View;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\Session;
 
-class UserController extends BaseController
+class UserController extends BaseController implements ResourceControllerInterface
 {
 
     public function store()
     {
-        $servername = "localhost:3308";
-        $username = "root";
-        $password = "";
-        $dbname = "shutthebox";
 
-        try {
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-            // set the PDO error mode to exception
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        \Tracy\Debugger::barDump(Post::get('datanasc'));
+        $user = new User();
 
-            $username = Post::get("username");
-            $nome = Post::get("nome");
-            $email = Post::get("email");
-            $password = Post::get("password");
-            $confirmPassword = Post::get("confirm-password");
-            $dtaNascimento = Post::get("dtaNascimento");
-            if (strlen($password) > 5) {
-                if ($password == $confirmPassword) {
+        $user->username = Post::get('username');
+        $user->nome = Post::get('nome');
+        $user->email = Post::get('email');
+        $user->password = md5(Post::get('password'));
+        $confirm_password = md5(Post::get('confirm-password'));
+        $user->dtanascimento = Post::get('datanasc');
 
+        Tracy\Debugger::barDump($user);
 
-                    $check_duplicates = $conn->prepare("SELECT * FROM users WHERE email='$email' or username='$username'");
-                    $check_duplicates->execute();
+        if (strlen($user->password) > 5) {
 
-                    $row = $check_duplicates->rowCount();
+            if ($user->password == $confirm_password) {
 
-                    if ($row == 0) {
-                        $sql = "INSERT INTO users (id_user, username, nome, email, password, dtaNascimento, tipoUser, estadoConta) 
-                VALUES (NULL, '$username', '$nome', '$email', '$password', '$dtaNascimento', DEFAULT, DEFAULT)";
+                if (User::exists(array('email' => $user->email, 'password' => $user->password))) {
 
-                        $conn->exec($sql);
-
-                    } else {
-                        echo '<script type="text/javascript">';
-                        echo 'alert("Dados inválidos, tente novamente!")';
-                        echo '</script>';
-
-                        return View::make('jogo_stb.register');
-                    }
-
-                    echo '<script type="text/javascript">';
-                    echo 'alert("O registo foi efetuado com sucesso!")';
-                    echo '</script>';
-
-                    return View::make('jogo_stb.login');
+                    Redirect::flashToRoute('jogo/registar', ['registo' => "repetido"]);
 
                 } else {
-                    echo '<script type="text/javascript">';
-                    echo 'alert("As passwords não são iguais!")';
-                    echo '</script>';
+                    if ($user->is_valid()) {
 
-                    return View::make('jogo_stb.register');
+                        $user->save(false);
+                        Redirect::toRoute('jogo/login');
+
+                    } else {
+                        Redirect::flashToRoute('jogo/register', ['user' => $user]);
+                    }
                 }
 
+            } else {
+                Redirect::flashToRoute('jogo/registar', ['registo' => "passwords_dif"]);
             }
-            else{
-                echo '<script type="text/javascript">';
-                echo 'alert("A password deve ter mais de 5 caracteres")';
-                echo '</script>';
-
-                return View::make('jogo_stb.register');
-            }
-        } catch
-        (PDOException $e) {
-            echo $e->getMessage();
+        } else {
+            Redirect::flashToRoute('jogo/registar', ['registo' => "password_curta"]);
         }
-
-        $conn = null;
 
     }
 
+    /**
+     * @return Returns
+     */
+    public function index()
+    {
+        // TODO: Implement index() method.
+    }
+
+    /**
+     * @return Returns
+     */
     public function create()
     {
-        return View::make('jogo_stb.register');
+        // TODO: Implement create() method.
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function show($id)
+    {
+        // TODO: Implement show() method.
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function edit($id)
+    {
+        $user = User::find($id);
+
+        if (is_null($user)) {
+
+        } else {
+            View::make('jogo_stb.update_register', ['user' => $user]);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function update($id)
+    {
+        $user = User::find($id);
+
+        $password = md5(Post::get("password"));
+        $confirmpassword = md5(Post::get("confirm-password"));
+
+        if ($password == "") {
+            $user->nome = Post::get("nome");
+            $user->email = Post::get("email");
+            $user->dtanascimento = Post::get("dtanascimento");
+        } else if ($password != "") {
+            if ($password == $confirmpassword) {
+                $user->nome = Post::get("nome");
+                $user->email = Post::get("email");
+                $user->password = md5(Post::get("password"));
+                $user->dtanascimento = Post::get("dtanascimento");
+            }
+        }
+
+        if ($user->is_valid()) {
+            $user->save();
+            Redirect::toRoute('jogo/area_privada');
+        } else {
+            // return form with data and errors
+            Redirect::flashToRoute('user/edit', ['user' => $user], $id);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function destroy($id)
+    {
+        // TODO: Implement destroy() method.
     }
 
     public function login()
     {
-        $servername = "localhost:3308";
-        $username = "root";
-        $password = "";
-        $dbname = "shutthebox";
+        $email = Post::get("email");
+        $password = md5(Post::get("password"));
 
-        try {
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        if (User::exists(array('email' => $email, 'password' => $password))) {
 
-            $email = Post::get("email");
-            $password = Post::get("password");
+            $user = User::find(array('email' => Post::get('email')));
 
-            $stmt = $conn->prepare("SELECT * FROM users WHERE email='$email' and password='$password'");
-            $stmt->execute();
+            if ($user->estadoconta == 0) {
 
-            $row = $stmt->rowCount();
-            if ($row == 1) {
-                while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)):
-                    $id = $lista['id_user'];
-                    $tipoUser = $lista['tipoUser'];
-                    $estado_conta = $lista['estadoConta'];
+                Session::set('email', $user->email);
+                Session::set('id_user', $user->id_user);
+                Session::set('tipo_utilizador', $user->tipouser);
 
-                    if ($estado_conta == 0) {
-                        Session::set('email', $email);
-                        Session::set('id_user', $id);
-                        Session::set('tipo_utilizador', $tipoUser);
-                        Session::set('tipoUser', $tipoUser);
-
-                        return View::make('jogo_stb.instructions');
-                    } else {
-                        echo '<script type="text/javascript">';
-                        echo 'alert("Estás Banido!!")';
-                        echo '</script>';
-                        return View::make('jogo_stb.login');
-                    }
-                endwhile;
-
+                Redirect::toRoute('jogo/instrucoes');
             } else {
-                return View::make('jogo_stb.login');
-                echo '<script type="text/javascript">';
-                echo 'alert("Dados inválidos, tente novamente!")';
-                echo '</script>';
-
-
+                Redirect::flashToRoute('jogo/login', ['estado' => "bloqueado"]);
             }
-
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
-    }
-
-    public function editar_reg()
-    {
-        $servername = "localhost:3308";
-        $username = "root";
-        $password = "";
-        $dbname = "shutthebox";
-
-        try {
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $idUser = Session::get("id_user");
-
-            $stmt = $conn->prepare("SELECT * FROM users WHERE id_user='$idUser'");
-            $stmt->execute();
-            while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)) {
-
-                session::set('nome', $lista['nome']);
-                session::set('email', $lista['email']);
-                session::set('dtaNascimento', $lista['dtaNascimento']);
-
-            }
-            \Tracy\Debugger::barDump(session::get('nome'), 'nome');
-            return View::make('jogo_stb.update_register');
-
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
-        $conn = null;
-
-    }
-
-
-    public function proc_editar_reg()
-    {
-        $servername = "localhost:3308";
-        $username = "root";
-        $password = "";
-        $dbname = "shutthebox";
-
-        try {
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-            // set the PDO error mode to exception
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            //\Tracy\Debugger::barDump($nome, nopme);
-            $idUser = Session::get("id_user");
-            $nome = Post::get("nome");
-            $email = Post::get("email");
-            $password = Post::get("password");
-            $confirmPassword = Post::get("confirm-password");
-            $dtaNascimento = Post::get("dtaNascimento");
-
-            if ($password == "") {
-                $sql = "UPDATE users SET nome = '$nome', email = '$email', dtaNascimento = '$dtaNascimento' WHERE id_user ='$idUser'";
-
-                // Prepare statement
-                $stmt = $conn->prepare($sql);
-
-                // execute the query
-                $stmt->execute();
-            } else if ($password != "") {
-
-                if ($password == $confirmPassword) {
-                    $sql = "UPDATE users SET nome = '$nome', email = '$email', password = '$password',
-            dtaNascimento = '$dtaNascimento' WHERE id_user ='$idUser'";
-
-                    // Prepare statement
-                    $stmt = $conn->prepare($sql);
-
-                    // execute the query
-                    $stmt->execute();
-
-                    echo '<script type="text/javascript">';
-                    echo 'alert("O registo foi editado com sucesso!")';
-                    echo '</script>';
-                } else {
-                    echo '<script type="text/javascript">';
-                    echo 'alert("As passwords não são iguais!")';
-                    echo '</script>';
-                }
-            }
-
-
-            return View::make('jogo_stb.private_area');
-
-        } catch (PDOException $e) {
-            echo $sql . "<br>" . $e->getMessage();
-        }
-    }
-
-    public function banir($id_user)
-    {
-        $servername = "localhost:3308";
-        $username = "root";
-        $password = "";
-        $dbname = "shutthebox";
-
-        try {
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $sql = "UPDATE users SET estadoConta = 1 WHERE id_user = $id_user";
-
-            // Prepare statement
-            $stmt = $conn->prepare($sql);
-
-            // execute the query
-            $stmt->execute();
-
-            return View::make('jogo_stb.admin_users');
-
-        } catch (PDOException $e) {
-            echo $sql . "<br>" . $e->getMessage();
-        }
-    }
-
-    public function desbanir($id_user)
-    {
-        $servername = "localhost:3308";
-        $username = "root";
-        $password = "";
-        $dbname = "shutthebox";
-
-        try {
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $sql = "UPDATE users SET estadoConta = 0 WHERE id_user = $id_user";
-
-            // Prepare statement
-            $stmt = $conn->prepare($sql);
-
-            // execute the query
-            $stmt->execute();
-
-            return View::make('jogo_stb.admin_users');
-
-        } catch (PDOException $e) {
-            echo $sql . "<br>" . $e->getMessage();
-        }
-    }
-
-    public function tornarAdmin($id_user)
-    {
-        $servername = "localhost:3308";
-        $username = "root";
-        $password = "";
-        $dbname = "shutthebox";
-
-        try {
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $sql = "UPDATE users SET tipoUser = 1 WHERE id_user = $id_user";
-
-            // Prepare statement
-            $stmt = $conn->prepare($sql);
-
-            // execute the query
-            $stmt->execute();
-
-            return View::make('jogo_stb.admin_users');
-
-        } catch (PDOException $e) {
-            echo $sql . "<br>" . $e->getMessage();
-        }
-    }
-
-    public function removerAdmin($id_user)
-    {
-        $servername = "localhost:3308";
-        $username = "root";
-        $password = "";
-        $dbname = "shutthebox";
-
-        try {
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $sql = "UPDATE users SET tipoUser = 0 WHERE id_user = $id_user";
-
-            // Prepare statement
-            $stmt = $conn->prepare($sql);
-
-            // execute the query
-            $stmt->execute();
-
-            return View::make('jogo_stb.admin_users');
-
-        } catch (PDOException $e) {
-            echo $sql . "<br>" . $e->getMessage();
+        } else {
+            Redirect::flashToRoute('jogo/login', ['estado' => "erro"]);
         }
     }
 
@@ -343,12 +165,69 @@ class UserController extends BaseController
         Redirect::toRoute('jogo/index');
     }
 
-    public function search()
+    public function topten()
     {
-        $search_id = Post::get('search');
-        Session::set("searchId", $search_id);
+        $options = array('limit' => 10);
+        $scores = Score::all($options);
 
-        return View::make('jogo_stb.admin_users');
+        View::make('jogo_stb.top10', ['scores' => $scores]);
+
     }
 
+    public function privatearea()
+    {
+        $id = Session::get("id_user");
+        $options = array('conditions' => array("users_id_user " == $id, 'limit' => 10, 'order' => 'pontos desc'));
+        $scores = Score::all($options);
+        View::make('jogo_stb.private_area', ['scoresuser' => $scores]);
+    }
+
+    public function adminuser()
+    {
+        $users = User::all();
+        View::make('jogo_stb.admin_users', ['users' => $users]);
+    }
+
+    public function banuser($id)
+    {
+        $user = User::find(array('id_user' => $id));
+
+        $user->estadoconta = 1;
+        if ($user->is_valid()) {
+            $user->save();
+            Redirect::toRoute('user/adminuser');
+        }
+    }
+    public function tirarban($id)
+    {
+        $user = User::find(array('id_user' => $id));
+
+        $user->estadoconta = 0;
+        if ($user->is_valid()) {
+            $user->save();
+            Redirect::toRoute('user/adminuser');
+        }
+    }
+
+    public function tornaradmin($id)
+    {
+        $user = User::find(array('id_user' => $id));
+
+        $user->tipouser = 1;
+        if ($user->is_valid()) {
+            $user->save();
+            Redirect::toRoute('user/adminuser');
+        }
+    }
+
+    public function removeradmin($id)
+    {
+        $user = User::find(array('id_user' => $id));
+
+        $user->tipouser = 0;
+        if ($user->is_valid()) {
+            $user->save();
+            Redirect::toRoute('user/adminuser');
+        }
+    }
 }

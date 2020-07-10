@@ -33,6 +33,7 @@ class BookController extends BaseController implements ResourceControllerInterfa
     /**
      * @return mixed
      */
+
     public function store()
     {
         // create new resource (activerecord/model) instance
@@ -69,6 +70,7 @@ class BookController extends BaseController implements ResourceControllerInterfa
      * @param $id
      * @return mixed
      */
+    
     public function edit($id)
     {
         $book = Book::find($id);
@@ -102,7 +104,7 @@ class BookController extends BaseController implements ResourceControllerInterfa
      * @param $id
      * @return mixed
      */
-    public function destroy($id)
+    public function destroy($id)                                                  
     {
         $book = Book::find($id);
         $book->delete();

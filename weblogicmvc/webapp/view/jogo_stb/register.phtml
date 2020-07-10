@@ -5,10 +5,19 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('menu');
-$user = Data::get('users') ?>
+try {
+    $user = Data::get('registo');
+}catch (Exception $ex){
+    $user = "";
+}
 
 
+\Tracy\Debugger::barDump($user);
 
+?>
+
+
+?>
 
 <div class="modal-dialog modal-login">
     <div class="modal-content">
@@ -34,13 +43,14 @@ $user = Data::get('users') ?>
                     <i class="fa fa-lock"></i>
                     <input type="password" class="form-control" name="password" placeholder="Palavra Passe" required="required">
                 </div>
+
                 <div class="form-group">
                     <i class="fa fa-lock"></i>
                     <input type="password" class="form-control" name="confirm-password" placeholder="Confirmar Palavra Passe" required="required">
                 </div>
                 <div class="form-group">
                     <i class="fa fa-user"></i>
-                    <input type="date" class="form-control" name="dtaNascimento" required="required">
+                    <input type="date" class="form-control" name="datanasc" required="required">
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary btn-block btn-lg" value="Registar">

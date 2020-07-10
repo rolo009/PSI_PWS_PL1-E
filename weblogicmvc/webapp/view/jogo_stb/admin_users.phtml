@@ -5,6 +5,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\View;
+use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Post;
 
 $idUser = Session::has("id_user");
@@ -14,30 +15,18 @@ if ($idUser == false) {
 
 }else{
 
-$estadoContaUser = Session::has("tipoUser");
+$estadoContaUser = Session::has("tipo_utilizador");
 
 if ($estadoContaUser == true) {
-$estadoContaUser2 = Session::get("tipoUser");
+$estadoContaUser2 = Session::get("tipo_utilizador");
 
 if ($estadoContaUser2 == 0){
     View::make('jogo_stb.index');
 }else{
 
+    $users = Data::get("users");
 
 Layout::includeLayout('menu');
-
-$servername = "localhost:3308";
-$username = "root";
-$password = "";
-$dbname = "shutthebox";
-
-try {
-$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-
-$stmt = $conn->prepare("SELECT * FROM  users");
-$stmt->execute();
 
 ?>
 
@@ -48,112 +37,54 @@ $stmt->execute();
     </form>
 </div>
 
-<?php
-$SearchId = Session::has('searchId');
-
-if ($SearchId == True) {
-    $search = Session::get('searchId');
-    $stmtSearch = $conn->prepare("SELECT * FROM  users WHERE id_user = '$search'");
-    $stmtSearch->execute();
-}
-?>
 
 <div class="players-container">
-    <table class="table">
-        <thead class="thead">
-        <tr>
-            <th scope="col">ID User</th>
-            <th scope="col">Username</th>
-            <th scope="col">Banir</th>
-            <th scope="col">Admin</th>
-        </tr>
-        </thead>
-        <tbody class="tbody">
-        <?php
-        if (Post::has('search')) {
-            while ($lista = $stmtSearch->fetch(PDO::FETCH_ASSOC)) { ?>
-                <tr>
-                <th scope="row"><?= $lista["id_user"] ?></th>
-                <td><?= $lista["username"] ?></td>
-                <?php
-                $estado_conta = $lista["estadoConta"];
-
-                if ($estado_conta == 0) {
-
-                    ?>
-                    <td>
-                        <a class="btn btn-dark my-2 my-sm-0" href="<?= URL::toRoute('user/banir', $lista["id_user"]) ?>"
-                           role="button">Banir</a>
-                    </td>
-                <?php } else if ($estado_conta == 1) { ?>
-                    <td>
-                        <a class="btn btn-light my-2 my-sm-0"
-                           href="<?= URL::toRoute('user/desbanir', $lista["id_user"]) ?>" role="button">Tirar Ban</a>
-                    </td>
-                    <?php
-                }
-            }
-
-            ?>
+        <table class="table table-striped">
+            <thead class="thead">
+            <tr>
+                <th scope="col">ID User</th>
+                <th scope="col">Username</th>
+                <th scope="col">Banir</th>
+                <th scope="col">Admin</th>
             </tr>
-            <?php
-        } else {
-            while ($lista = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
-
+            </thead>
+            <tbody class="tbody">
+            <?php foreach ($users as $user) { ?>
                 <tr>
-                    <th scope="row"><?= $lista["id_user"] ?></th>
-                    <td><?= $lista["username"] ?></td>
-                    <?php
-                    $estado_conta = $lista["estadoConta"];
-                    $tipo_user = $lista["tipoUser"]; ?>
-
+                    <td><?=$user->id_user?></td>
+                    <td><?=$user->username?></td>
+                    <td>
                         <?php
-                        if ($estado_conta == 0) {
+                        if ($user->estadoconta == 0){ ?>
+                            <a href="<?=Url::toRoute('user/banuser', $user->id_user)?>" class="btn btn-dark my-2 my-sm-0" role="button">Banir</a>
+                        <?php
+                        }
+                        else if ($user->estadoconta == 1){ ?>
+                            <a href="<?=Url::toRoute('user/tirarban', $user->id_user)?>" class="btn btn-light my-2 my-sm-0" role="button">Tirar Ban</a>
+                        <?php
+                        }
                         ?>
-                    <td>
-                        <a class="btn btn-dark my-2 my-sm-0"
-                           href="<?= URL::toRoute('user/banir', $lista["id_user"]) ?>" role="button">Banir</a>
-                    </td>
-                        <?php }
-                        if ($estado_conta == 1) {
-                        ?>
-                    <td>
-                        <a class="btn btn-light my-2 my-sm-0"
-                           href="<?= URL::toRoute('user/desbanir', $lista["id_user"]) ?>" role="button">Tirar
-                            Ban</a>
 
                     </td>
-                <?php }
-                        if ($tipo_user == 0) { ?>
                     <td>
-                        <a class="btn btn-warning my-2 my-sm-0"
-                           href="<?= URL::toRoute('user/tornarAdmin', $lista["id_user"]) ?>" role="button">Tornar
-                            Admin</a>
-                    </td>
-                        <?php } if ($tipo_user == 1) { ?>
-                    <td>
-                        <a class="btn btn-outline-warning tadmin my-2 my-sm-0"
-                           href="<?= URL::toRoute('user/removerAdmin', $lista["id_user"]) ?>" role="button">Tirar
-                            Admin</a>
-                    </td>
-                    <?php
-                }
-                ?>
+                        <?php
+                        if ($user->tipouser == 0){ ?>
+                            <a href="<?=Url::toRoute('user/tornaradmin', $user->id_user)?>" class="btn btn-warning my-2 my-sm-0" role="button">Tornar Admin</a>
+                            <?php
+                        }
+                        else if ($user->tipouser == 1){ ?>
+                            <a href="<?=Url::toRoute('user/removeradmin', $user->id_user)?>" class="btn btn-outline-warning tadmin my-2 my-sm-0" role="button">Remover Admin</a>
+                            <?php
+                        }
+                        ?>
 
+                    </td>
                 </tr>
+            <?php } ?>
 
-                <?php
-            }
-        }
+            </tbody>
 
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
-        $conn = null;
-
-        ?>
-        </tbody>
-    </table>
+        </table>
 </div>
 
 <div class="rodape">

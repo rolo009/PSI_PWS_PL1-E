@@ -1,21 +1,13 @@
 <?php
-use ActiveRecord\Model;
 
-class User extends Model
+
+class User extends \ActiveRecord\Model
 {
-    public function conexao()
-    {
-        $servername = "localhost";
-        $username = "root";
-        $password = "password";
-
-        try {
-            $conn = new PDO("mysql:host=$servername;dbname=myDB", $username, $password);
-            // set the PDO error mode to exception
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Connected successfully";
-        } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
-        }
-    }
+    static $validates_presence_of = array (
+        array('username'),
+        array('nome'),
+        array('email'),
+        array('password'),
+        array('dtanascimento')
+    );
 }

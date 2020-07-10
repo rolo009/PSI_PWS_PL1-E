@@ -3,9 +3,27 @@ use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Session;
+use ArmoredCore\WebObjects\Data;
 
 
-Layout::includeLayout('menu'); ?>
+Layout::includeLayout('menu');
+
+try {
+    $estado = Data::get('estado');
+
+}
+catch (Exception $ex) {
+    $estado = false;
+}
+
+if($estado == "bloqueado"){
+    echo "erro utilizador";
+}
+elseif ($estado == "erro"){
+    echo "erro conta";
+}
+
+?>
 
 <div class="modal-dialog modal-login">
     <div class="modal-content">

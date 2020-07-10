@@ -55,12 +55,12 @@ if ($tipoUser == 0 || $tipoUser == 1) {
                 <a class="nav-link" href="<?= URL::toRoute('jogo/game') ?>">Jogar <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="<?= URL::toRoute('jogo/top10') ?>">Top 10 <span
+                <a class="nav-link" href="<?= URL::toRoute('user/topten') ?>">Top 10 <span
                             class="sr-only">(current)</span></a>
             </li>
             <?php if ($tipoUser == 1) { ?>
                 <li class="nav-item active">
-                    <a class="nav-link" href="<?= URL::toRoute('jogo/admin') ?>">Administração<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="<?= URL::toRoute('user/adminuser') ?>">Administração<span class="sr-only">(current)</span></a>
                 </li>
             <?php } ?>
         </ul>
@@ -68,7 +68,7 @@ if ($tipoUser == 0 || $tipoUser == 1) {
         $idUser = Session::has("id_user");
         if ($idUser == False) { ?>
         <div class="form-inline my-2 my-md-0">
-            <a class="btn btn-light mr-sm-2" href="<?= URL::toRoute('user/create') ?>" role="button">Registar</a>
+            <a class="btn btn-light mr-sm-2" href="<?= URL::toRoute('jogo/registar') ?>" role="button">Registar</a>
             <a class="btn btn-light my-2 my-sm-0" href="<?= URL::toRoute('jogo/login') ?>" role="button">Login</a>
             <?php
             }
@@ -78,7 +78,7 @@ if ($tipoUser == 0 || $tipoUser == 1) {
                 <a class="btn btn-light my-2 my-sm-0" href="<?= URL::toRoute('user/logout') ?>" role="button">Logout</a>
 
 
-            <a class="btn btn-light" href="<?= URL::toRoute('jogo/area_privada') ?>" role="button"><i
+            <a class="btn btn-light" href="<?= URL::toRoute('user/privatearea') ?>" role="button"><i
                         class="fas fa-user-cog"></i></a>
             <?php } ?>
         </div>

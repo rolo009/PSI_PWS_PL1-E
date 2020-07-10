@@ -54,7 +54,6 @@ class GameController extends BaseController
 
     public function admin()
     {
-
         return View::make('jogo_stb.admin_users');
     }
 

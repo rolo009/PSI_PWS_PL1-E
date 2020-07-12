@@ -138,7 +138,6 @@ class GameController extends BaseController
     {
 
         $gameEngine = Session::get("ge");
-        //$gameEngine = new GameEngine();
 
 
         \Tracy\Debugger::barDump($number, 'Numero escolhido');
@@ -182,10 +181,9 @@ class GameController extends BaseController
 
         $gameEngine->updateEstadoJogo();
         Session::set('ge', $gameEngine);
-
         $pontosp1 = $gameEngine->tabuleiro->checkFinalJogadaP1($gameEngine->tabuleiro->numerosBloqueioP1->getNumerosBloqueio());
         $pontosp2 = $gameEngine->tabuleiro->checkFinalJogadaP2($gameEngine->tabuleiro->numerosBloqueioP2->getNumerosBloqueio());
-        $pontos = $pontosp1 - $pontosp2;
+        $pontos = $pontosp2 - $pontosp1;
 
         Session::set('pontos-p1', $pontos);
 

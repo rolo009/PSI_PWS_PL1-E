@@ -11,11 +11,22 @@ try {
     $user = "";
 }
 
+if($user == "passwords_dif"){
+    echo '<script type="text/javascript">';
+    echo 'alert("ERRO! As passwords não coincidem!")';
+    echo '</script>';
+}
+elseif ($user == "password_curta"){
+    echo '<script type="text/javascript">';
+    echo 'alert("ERRO! A password é demasiado curta (Min 6 caracteres)!")';
+    echo '</script>';
+}
 
-\Tracy\Debugger::barDump($user);
-
-?>
-
+elseif ($user == "repetido"){
+    echo '<script type="text/javascript">';
+    echo 'alert("ERRO! Este utilizador já se encontra registado!")';
+    echo '</script>';
+}
 
 ?>
 

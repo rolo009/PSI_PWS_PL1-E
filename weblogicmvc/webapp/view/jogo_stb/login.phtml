@@ -5,7 +5,6 @@ use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\Data;
 
-
 Layout::includeLayout('menu');
 
 try {
@@ -17,10 +16,14 @@ catch (Exception $ex) {
 }
 
 if($estado == "bloqueado"){
-    echo "erro utilizador";
+    echo '<script type="text/javascript">';
+    echo 'alert("ERRO! Esta conta foi bloqueada!")';
+    echo '</script>';
 }
 elseif ($estado == "erro"){
-    echo "erro conta";
+    echo '<script type="text/javascript">';
+    echo 'alert("ERRO! Email ou password incorretos!")';
+    echo '</script>';
 }
 
 ?>

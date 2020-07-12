@@ -37,7 +37,7 @@ if ($gameEngine->getEstadoJogo() == 5) {
         <h5 class="card-title">Pontuação P2 </h5>
         <p class="card-text"> <?= $totalP2 ?> Pontos</p>
         <h5 class="card-title">VENCEDOR </h5>
-        <p class="card-text"> <?= $winner ?> </p>
+        <p class="card-text"> <?= $winner . " - " . Session::get("pontos-p1") . " Pontos"?> </p>
 
             <a type="button" href="<?= URL::toRoute('jogo/game') ?>"
                class="btn btn-outline-secondary">Iniciar novo Jogo</a>

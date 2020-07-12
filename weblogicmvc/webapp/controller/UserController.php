@@ -12,7 +12,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     public function store()
     {
-
+        $password = Post::get('password');
         \Tracy\Debugger::barDump(Post::get('datanasc'));
         $user = new User();
 
@@ -25,12 +25,11 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
         Tracy\Debugger::barDump($user);
 
-        if (strlen($user->password) > 5) {
+        if (strlen($password) > 5) {
 
             if ($user->password == $confirm_password) {
 
                 if (User::exists(array('email' => $user->email, 'password' => $user->password))) {
-
                     Redirect::flashToRoute('jogo/registar', ['registo' => "repetido"]);
 
                 } else {
@@ -252,18 +251,27 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     public function storepontos()
     {
+        $gameEngine = Session::get('ge');
+
         $score = new Score();
 
         $score->pontos = Session::get("pontos-p1");
         $score->users_id_user = Session::get("id_user");
 
-        if ($score->is_valid()) {
-            $score->save(false);
-            Redirect::toRoute('jogo/game');
+        if ($score->pontos > 0) {
+            if ($score->is_valid()) {
+                $score->save(false);
 
-        } else {
-            Redirect::flashToRoute('jogo/index');
+                return View::make('jogo_stb.game', ['ge' => $gameEngine]);
+
+            } else {
+                return View::make('jogo_stb.game', ['ge' => $gameEngine]);
+            }
         }
+        else{
+            return View::make('jogo_stb.game', ['ge' => $gameEngine]);
+        }
+
 
     }
 }

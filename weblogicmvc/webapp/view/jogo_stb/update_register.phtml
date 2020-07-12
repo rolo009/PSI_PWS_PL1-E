@@ -14,7 +14,7 @@ if ($idUser == false) {
 Layout::includeLayout('menu');
 
 $user = Data::get('user');
-
+\Tracy\Debugger::barDump($user, "update");
 ?>
 <div class="modal-dialog modal-login">
     <div class="modal-content">
@@ -42,8 +42,9 @@ $user = Data::get('user');
                 </div>
                 <div class="form-group">
                     <i class="fa fa-user"></i>
-                    <input type="date" class="form-control" name="dtanascimento" value="" required="required">
+                    <input type="date" class="form-control" value="<?= $user->dtanascimento ?>" name="dtanascimento" required="required">
                 </div>
+
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary btn-block btn-lg" value="Editar Registo">
                 </div>

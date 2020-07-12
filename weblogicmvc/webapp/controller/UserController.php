@@ -119,7 +119,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
         if ($user->is_valid()) {
             $user->save();
-            Redirect::toRoute('jogo/area_privada');
+            Redirect::toRoute('jogo/index');
         } else {
             // return form with data and errors
             Redirect::flashToRoute('user/edit', ['user' => $user], $id);
@@ -167,25 +167,34 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     public function topten()
     {
-        $options = array('limit' => 10);
-        $scores = Score::all($options);
-
+        $scores = Score::find_by_sql("Select u.username, s.pontos FROM users u JOIN scores s ON (u.id_user = s.users_id_user) ORDER BY pontos DESC LIMIT 10");
+        \Tracy\Debugger::barDump($scores);
         View::make('jogo_stb.top10', ['scores' => $scores]);
-
     }
 
     public function privatearea()
     {
         $id = Session::get("id_user");
-        $options = array('conditions' => array("users_id_user " == $id, 'limit' => 10, 'order' => 'pontos desc'));
-        $scores = Score::all($options);
+        $scores = Score::find('all', array('conditions' => "users_id_user = $id", 'order' => 'pontos desc', 'limit' => 10));
+
+        \Tracy\Debugger::barDump($scores, "score");
+
         View::make('jogo_stb.private_area', ['scoresuser' => $scores]);
     }
 
     public function adminuser()
     {
-        $users = User::all();
-        View::make('jogo_stb.admin_users', ['users' => $users]);
+        if (Post::has("search")) {
+            $search = Post::get("search");
+
+            $user = User::find('all', array('conditions' => "username LIKE '$search%'"));
+            \Tracy\Debugger::barDump($user, "user");
+            View::make('jogo_stb.admin_users', ['users' => $user]);
+
+        } else {
+            $users = User::all();
+            View::make('jogo_stb.admin_users', ['users' => $users]);
+        }
     }
 
     public function banuser($id)
@@ -198,6 +207,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
             Redirect::toRoute('user/adminuser');
         }
     }
+
     public function tirarban($id)
     {
         $user = User::find(array('id_user' => $id));
@@ -229,5 +239,31 @@ class UserController extends BaseController implements ResourceControllerInterfa
             $user->save();
             Redirect::toRoute('user/adminuser');
         }
+    }
+
+    public function searchuser()
+    {
+        $search = Post::get("search");
+
+        $user = User::find(array('username' => $search));
+
+        Redirect::toRoute('jogo/admin', ['users-search' => $user]);
+    }
+
+    public function storepontos()
+    {
+        $score = new Score();
+
+        $score->pontos = Session::get("pontos-p1");
+        $score->users_id_user = Session::get("id_user");
+
+        if ($score->is_valid()) {
+            $score->save(false);
+            Redirect::toRoute('jogo/game');
+
+        } else {
+            Redirect::flashToRoute('jogo/index');
+        }
+
     }
 }

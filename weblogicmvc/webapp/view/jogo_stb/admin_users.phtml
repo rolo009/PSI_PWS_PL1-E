@@ -24,14 +24,14 @@ if ($estadoContaUser2 == 0){
     View::make('jogo_stb.index');
 }else{
 
-    $users = Data::get("users");
+        $users = Data::get("users");
 
 Layout::includeLayout('menu');
 
 ?>
 
 <div class="search-player justify-content-center">
-    <form class="form-inline" method="post" action="<?= Url::toRoute('user/search') ?>">
+    <form class="form-inline" method="post" action="<?= Url::toRoute('user/adminuser') ?>">
         <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search">
         <button class="btn btn-dark" type="submit">Search</button>
     </form>

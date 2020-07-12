@@ -178,42 +178,20 @@ class GameController extends BaseController
 
     public function fimJogoP2()
     {
-
         $gameEngine = Session::get('ge');
 
         $gameEngine->updateEstadoJogo();
         Session::set('ge', $gameEngine);
 
-        $servername = "localhost:3308";
-        $username = "root";
-        $password = "";
-        $dbname = "shutthebox";
+        $pontosp1 = $gameEngine->tabuleiro->checkFinalJogadaP1($gameEngine->tabuleiro->numerosBloqueioP1->getNumerosBloqueio());
+        $pontosp2 = $gameEngine->tabuleiro->checkFinalJogadaP2($gameEngine->tabuleiro->numerosBloqueioP2->getNumerosBloqueio());
+        $pontos = $pontosp1 - $pontosp2;
 
-        try {
-            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-            // set the PDO error mode to exception
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        Session::set('pontos-p1', $pontos);
 
-            $gameEngine = Session::get("ge");
-            $pontos = $gameEngine->tabuleiro->checkFinalJogadaP1($gameEngine->tabuleiro->numerosBloqueioP1->getNumerosBloqueio());
-
-            $id_user = Session::get("id_user");
-            if ($id_user != null) {
-                $sql = "INSERT INTO pontos (id_jogo, pontos, users_id_user) 
-                VALUES (NULL, '$pontos', '$id_user')";
-
-                $conn->exec($sql);
-            }
-
-            return View::make('jogo_stb.game', ['ge' => $gameEngine]);
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
-
-        $conn = null;
-
-
-
+        Redirect::toRoute('user/storepontos');
     }
+
+
 
 }
